@@ -7,4 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Add
+
+- initialize the "empty" app with serviceaccount only
+
 [Unreleased]: https://github.com/giantswarm/{APP-NAME}/tree/main
