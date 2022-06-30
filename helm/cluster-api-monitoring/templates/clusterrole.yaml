@@ -1,0 +1,20 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{include "name" .}}
+  labels: {{- include "labels.common" . | nindent 4}}
+rules:
+{{- range $componentKey, $componentVal := .Values.monitoredResources }}
+  {{- range $key, $val := $componentVal }}
+    {{- if $.Files.Get (printf "configuration/%s_%s.yaml" $componentKey $key) }}
+  - apiGroups:
+      - {{ $val.group }}
+    resources:
+      - {{ $key }}
+    verbs:
+      - get
+      - list
+      - watch
+    {{- end }}
+  {{- end }}
+{{- end }}

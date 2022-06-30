@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Add
 
+- initial support for cluster CR monitoring
 - initialize the "empty" app with serviceaccount only
 
 [Unreleased]: https://github.com/giantswarm/{APP-NAME}/tree/main

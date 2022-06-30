@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{include "name" .}}
+  namespace: {{.Release.Namespace}}
+  labels: {{- include "labels.common" . | nindent 4}}
+spec:
+  selector:
+    matchLabels: {{- include "labels.selector" . | nindent 6}}
+  template:
+    metadata:
+      annotations:
+        checksum/config:
+          {{include (print $.Template.BasePath "/configmap.yaml") . | sha256sum}}
+      labels: {{- include "labels.selector" . | nindent 8}}
+    spec:
+      serviceAccountName: {{include "name" .}}
+      containers:
+        - name: {{.Chart.Name}}
+          image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{.Values.image.pullPolicy}}
+          command:
+            [
+              "sh",
+              "-c",
+              '/kube-state-metrics --resources="{{ include "monitoredResources.list" . }}" --custom-resource-state-config-file="/data/config.yaml"',
+            ]
+          ports:
+            - name: metrics
+              containerPort: 8080
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8080
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          resources: {{- toYaml .Values.resources | nindent 12}}
+          securityContext: {{- toYaml .Values.securityContext | nindent 12}}
+          volumeMounts:
+            - mountPath: "/data"
+              name: config
+      volumes:
+        - name: config
+          configMap:
+            name: {{include "name" .}}
