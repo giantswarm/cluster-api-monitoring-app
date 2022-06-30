@@ -2,12 +2,12 @@ apiVersion: v2
 appVersion: 0.0.1
 
 # Please make sure your name DOES NOT end in "app" or "-app".
-name: {APP-NAME}
+name: cluster-api-monitoring
 
 # Please describe what the app provides in a sentence or two.
 description: Please add description
 
-home: https://github.com/giantswarm/{APP-NAME}
+home: https://github.com/giantswarm/cluster-api-monitoring
 
 # If you have an icon/logo, you should add it to https://github.com/giantswarm/web-assets
 # and set the final URL as a value here and uncomment.
@@ -15,7 +15,7 @@ home: https://github.com/giantswarm/{APP-NAME}
 
 sources:
 - https://github.com/some-org/some-repo
-version: 0.0.0-dev # [[ .Version ]] if you're using architect instead of app-build-suite
+version: 0.0.0-dev # 0.0.0-0cee035fd67f6963ebff726a784b3035329d18ee if you're using architect instead of app-build-suite
 annotations:
   application.giantswarm.io/team: TEAM-NAME # used through .Chart.Annotations.team (not replaced automatically)
   branch: my-branch # Used through .Chart.Annotations.branch (This is not replaced automatically)
