@@ -2,11 +2,37 @@ name: cluster-api-monitoring
 serviceType: managed
 
 project:
-  branch: "[[ .Branch ]]"
-  commit: "[[ .SHA ]]"
+  branch: "cluster_cr_support"
+  commit: "42723f850833235d15959562668b58f05f597537"
 
 image:
   registry: quay.io
   name: giantswarm/kube-state-metrics
-  tag: v0.0.1
-  pullPolicy: v2.5.0-crd-support-marioc-2
+  tag: v2.5.0-crd-support-marioc-2
+  # marioc-2 is based on https://github.com/chrischdi/kube-state-metrics/commit/790a9b71785f5ffef7c1e0fde5be7dcf814b97ea + a modified dockerfile (xref: https://github.com/kubernetes/kube-state-metrics/issues/1770)
+  pullPolicy: IfNotPresent
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+  readOnlyRootFilesystem: true
+  runAsNonRoot: true
+  runAsUser: 65534
+  seccompProfile:
+    type: "RuntimeDefault"
+
+resources:
+  limits:
+    memory: 30Mi
+  requests:
+    memory: 30Mi
+
+# List of CRs to monitor
+monitoredResources:
+  capi:
+    clusters:
+      group: cluster.x-k8s.io
+      kind: Cluster
+      version: v1beta1

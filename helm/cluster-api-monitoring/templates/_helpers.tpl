@@ -36,3 +36,18 @@ giantswarm.io/service-type: {{ .Values.serviceType }}
 helm.sh/chart: {{ include "chart" . | quote }}
 {{- end -}}
 
+
+{{/*
+TODO: better variable name
+*/}}
+{{- define "monitoredResources.list" -}}
+{{- $monitoredResourcName := list -}}
+{{- range $componentKey, $componentVal := .Values.monitoredResources }}
+  {{- range $key, $val := $componentVal }}
+    {{- if $.Files.Get (printf "configuration/%s_%s.yaml" $componentKey $key) }}
+        {{- $monitoredResourcName = printf "%s" $key | append $monitoredResourcName }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- $monitoredResourcName | join "," -}}
+{{- end -}}

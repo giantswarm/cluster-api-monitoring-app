@@ -1,17 +1,23 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/{APP-NAME}.svg?style=shield)](https://circleci.com/gh/giantswarm/{APP-NAME})
+[![CircleCI](https://circleci.com/gh/giantswarm/cluster-api-monitoring.svg?style=shield)](https://circleci.com/gh/giantswarm/cluster-api-monitoring)
 
-[Read me after cloning this template (GS staff only)](https://intranet.giantswarm.io/docs/dev-and-releng/app-developer-processes/adding_app_to_appcatalog/)
+# cluster-api-monitoring chart
 
-# {APP-NAME} chart
-
-Giant Swarm offers a {APP-NAME} App which can be installed in workload clusters.
-Here we define the {APP-NAME} chart with its templates and default configuration.
+Giant Swarm offers a cluster-api-monitoringApp which can be installed in management clusters.
+Here we define the cluster-api-monitoring chart with its templates and default configuration.
 
 **What is this app?**
 
+`cluster-api-monitoring` is a dedicated [`kube-state-metrics` (`KSM`)](https://github.com/kubernetes/kube-state-metrics) installation with the alpha feature of `CustomResourceStateMetrics` enabled.
+
 **Why did we add it?**
 
-**Who can use it?**
+As the current alpha feature has a wide range of limitations and the discussion about new features is still ongoing with the KSM community we had to build this app from a recently created fork of KSM. The goal of this fork is a contribution back to the upstream community but was initialy used to verify if it's worth the effort to maintain a custom metrics exporter, based on KSM `golang` packages.
+
+To not harm the existing `KSM` installation in `kube-system` and make fast progress towards monitoring of ClusterAPI related CRs + the fact that `KSM` is running from a forked version we decided to start creating a new app.
+
+**Who should use it?**
+
+Everyone which needs information from `CustomResource` objects exposed as metric.
 
 ## Installing
 
@@ -22,48 +28,38 @@ There are several ways to install this app onto a workload cluster.
 
 ## Configuring
 
-### values.yaml
+If you for example want the conditions of all CRs of type `GitRepository` exposed as metric `flux_gitrepositories_status_conditions` there are two things to do:
 
-**This is an example of a values file you could upload using our web interface.**
+First of all, `cluster-api-monitoring` needs a configuration to know how the status condition should be generated as metric.
 
-```yaml
-# values.yaml
-
-```
-
-### Sample App CR and ConfigMap for the management cluster
-
-If you have access to the Kubernetes API on the management cluster, you could create
-the App CR and ConfigMap directly.
-
-Here is an example that would install the app to
-workload cluster `abc12`:
+Therefore, create a file called `flux_gitrepositories.yaml` under `helm/cluster-api-monitoring/configuration`. For `flux` it's possible to get a gauge metric based on conditions:
 
 ```yaml
-# appCR.yaml
-
+labelsFromPath:
+  name: [metadata, name]
+  url: [spec, url]
+  namespace: [metadata, namespace]
+metrics:
+  - name: status_conditions
+    each:
+      gauge:
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+        labelFromKey: reason
+        labelsFromPath:
+          type: [type]
 ```
+
+As we now have a configuration for `GitRepositories` we have to enable this configuration in the `values.yaml` by creating a new object in the `monitoredResource` map:
 
 ```yaml
-# user-values-configmap.yaml
-
+monitoredResources:
+  flux:
+    gitrepositories:
+      group: source.toolkit.fluxcd.io
+      kind: GitRepository
+      version: v1beta2
 ```
-
-See our [full reference on how to configure apps](https://docs.giantswarm.io/app-platform/app-configuration/) for more details.
-
-## Compatibility
-
-This app has been tested to work with the following workload cluster release versions:
-
-- _add release version_
-
-## Limitations
-
-Some apps have restrictions on how they can be deployed.
-Not following these limitations will most likely result in a broken deployment.
-
-- _add limitation_
-
-## Credit
-
-- {APP HELM REPOSITORY}

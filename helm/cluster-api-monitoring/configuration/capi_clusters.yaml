@@ -1,0 +1,16 @@
+labelsFromPath:
+  name: [metadata, name]
+  cluster: [metadata, name]
+  namespace: [metadata, namespace]
+metrics:
+  - name: status_conditions
+    each:
+      gauge:
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+        labelFromKey: reason
+        labelsFromPath:
+          type: [type]
