@@ -31,8 +31,3 @@ resources:
 
 # List of CRs to monitor
 monitoredResources:
-  capi:
-    clusters:
-      group: cluster.x-k8s.io
-      kind: Cluster
-      version: v1beta1
