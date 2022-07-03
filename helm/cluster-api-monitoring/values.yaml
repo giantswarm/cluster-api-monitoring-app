@@ -64,3 +64,8 @@ monitoredResources:
       kind: OpenStackMachine
       version: v1alpha5
       plural: openstackmachines
+    machine:
+      group: cluster.x-k8s.io
+      kind: Machine
+      version: v1beta1
+      plural: machines
