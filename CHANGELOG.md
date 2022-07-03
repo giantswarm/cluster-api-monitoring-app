@@ -22,6 +22,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `capi_machinedeployment_status_available_replicas`
   - `capi_machinedeployment_status_unavailable_replicas`
   - `capi_machinedeployment_status_phase`
+- initial support for Cluster API openstack
+  - `capi_openstackcluster_info`
+  - `capi_openstackcluster_status_failure`
+  - `capi_openstackcluster_status_loadbalancer`
+  - `capi_openstackcluster_status_bastion`
+  - `capi_openstackmachine_info`
+  - `capi_openstackmachine_volume_disk_size`
+  - `capi_openstackmachine_status_instance_state`
+  - `capi_openstackmachine_status_failure`
 - initialize the "empty" app with serviceaccount only
 
 [Unreleased]: https://github.com/giantswarm/{APP-NAME}/tree/main

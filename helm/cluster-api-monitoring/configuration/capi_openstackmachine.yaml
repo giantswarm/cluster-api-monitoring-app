@@ -1,0 +1,47 @@
+labelsFromPath:
+  name: [metadata, name]
+  namespace: [metadata, namespace]
+  cluster: [metadata, labels, cluster.x-k8s.io/cluster-name]
+metrics:
+  - name: info
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          machine_reference: [metadata, ownerReferences, "[kind=Machine]", name]
+          machine_set_reference:
+            [metadata, ownerReferences, "[kind=MachineSet]", name]
+          kubeadm_controlplane_reference:
+            [metadata, ownerReferences, "[kind=KubeadmControlPlane]", name]
+          image: [spec, image]
+          flavor: [spec, flavor]
+          instance_id: [spec, instanceID]
+  - name: volume_disk_size
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - spec
+          - rootVolume
+          - diskSize
+  - name: status_instance_state
+    each:
+      type: StateSet
+      stateSet:
+        path:
+          - status
+          - instanceState
+        list:
+          - BUILDING
+          - ACTIVE
+          - ERROR
+          - STOPPED
+          - SHUTOFF
+          - DELETED
+        labelName: state
+  - name: status_failure
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          reason: [status, failureReason]
