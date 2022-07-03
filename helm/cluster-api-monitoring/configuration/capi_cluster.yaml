@@ -1,0 +1,43 @@
+labelsFromPath:
+  name: [metadata, name]
+  cluster: [metadata, name]
+  namespace: [metadata, namespace]
+metrics:
+  - name: status_conditions
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+        labelFromKey: reason
+        labelsFromPath:
+          type: [type]
+  - name: info
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          control_plane_endpoint_host: [spec, controlPlaneEndpoint, host]
+          control_plane_endpoint_port: [spec, controlPlaneEndpoint, port]
+          control_plane_reference_kind: [spec, controlPlaneRef, kind]
+          control_plane_reference_name: [spec, controlPlaneRef, name]
+          infrastructure_reference_kind: [spec, infrastructureRef, kind]
+          infrastructure_reference_name: [spec, infrastructureRef, name]
+  - name: status_phase
+    each:
+      type: StateSet
+      stateSet:
+        path:
+          - status
+          - phase
+        list:
+          - Pending
+          - Provisioning
+          - Provisioned
+          - Deleting
+          - Failed
+          - Unknown
+        labelName: phase

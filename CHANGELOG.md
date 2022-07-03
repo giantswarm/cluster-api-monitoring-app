@@ -35,6 +35,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `capi_machine_info`
   - `capi_machine_status_conditions`
   - `capi_machine_status_phase`
+- initial support for Cluster API cluster
+  - `capi_cluster_info`
+  - `capi_cluster_status_conditions`
+  - `capi_cluster_status_phase`
 - initialize the "empty" app with serviceaccount only
 
 [Unreleased]: https://github.com/giantswarm/{APP-NAME}/tree/main
