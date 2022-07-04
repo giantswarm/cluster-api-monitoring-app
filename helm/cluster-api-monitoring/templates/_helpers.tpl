@@ -45,7 +45,7 @@ TODO: better variable name
 {{- range $componentKey, $componentVal := .Values.monitoredResources }}
   {{- range $key, $val := $componentVal }}
     {{- if $.Files.Get (printf "configuration/%s_%s.yaml" $componentKey $key) }}
-        {{- $monitoredResourcName = printf "%s" $key | append $monitoredResourcName }}
+        {{- $monitoredResourcName = printf "%s" $val.plural | append $monitoredResourcName }}
     {{- end }}
   {{- end }}
 {{- end }}

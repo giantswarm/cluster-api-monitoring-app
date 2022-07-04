@@ -2,7 +2,7 @@
 
 # cluster-api-monitoring chart
 
-Giant Swarm offers a cluster-api-monitoringApp which can be installed in management clusters.
+Giant Swarm offers a cluster-api-monitoring `App` which can be installed in management clusters.
 Here we define the cluster-api-monitoring chart with its templates and default configuration.
 
 **What is this app?**
@@ -32,7 +32,7 @@ If you for example want the conditions of all CRs of type `GitRepository` expose
 
 First of all, `cluster-api-monitoring` needs a configuration to know how the status condition should be generated as metric.
 
-Therefore, create a file called `flux_gitrepositories.yaml` under `helm/cluster-api-monitoring/configuration`. For `flux` it's possible to get a gauge metric based on conditions:
+Therefore, create a file called `flux_gitrepository.yaml` under `helm/cluster-api-monitoring/configuration`. For `flux` it's possible to get a gauge metric based on conditions:
 
 ```yaml
 labelsFromPath:
@@ -58,15 +58,18 @@ As we now have a configuration for `GitRepositories` we have to enable this conf
 ```yaml
 monitoredResources:
   flux:
-    gitrepositories:
+    gitrepository:
       group: source.toolkit.fluxcd.io
       kind: GitRepository
       version: v1beta2
+      plural: gitrepositories
 ```
 
 ### no op (no operation) mode
 
-Without any defined `monitoredResources`, `cluster-api-monitoring` is able to run in a `no op` mode. This mean the `--resources` argument will be an empty string and therefore `KSM` tries to to scrape all known resources (e.g. `v1.Namespaces`, `v1.Pods`, ...). As `cluster-api-monitoring` is primary designed to monitor `CRs` only and all required permissions are defined in the `ClusterRole`, in the `noop` mode, the `ClusteRole` is empty. Therefore `KSM` will print a bunch of permission errors, e.g. 
+> As soon as [Allow monitoring of CRs only #1778](https://github.com/kubernetes/kube-state-metrics/issues/1778) is open we have to acknowledge the current no op behavior.
+
+Without any defined `monitoredResources`, `cluster-api-monitoring` is able to run in a `no op` mode. This means the `--resources` argument will be an empty string and therefore `KSM` tries to to scrape all known resources (e.g. `v1.Namespaces`, `v1.Pods`, ...). As `cluster-api-monitoring` is primary designed to monitor `CRs` only and all required permissions are defined in the `ClusterRole`, in the `noop` mode, the `ClusteRole` is empty. Therefore `KSM` will print a bunch of permission errors, e.g. 
 
 ```
 W0703 18:55:58.809274       1 reflector.go:324] pkg/mod/k8s.io/client-go@v0.24.1/tools/cache/reflector.go:167: failed to list *v1.Namespace: namespaces is forbidden: User "system:serviceaccount:giantswarm:cluster-api-monitoring" cannot list resource "namespaces" in API group "" at the cluster scope

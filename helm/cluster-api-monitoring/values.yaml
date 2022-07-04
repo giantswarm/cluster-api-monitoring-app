@@ -8,8 +8,8 @@ project:
 image:
   registry: quay.io
   name: giantswarm/kube-state-metrics
-  tag: v2.5.0-crd-support-marioc-2
-  # marioc-2 is based on https://github.com/chrischdi/kube-state-metrics/commit/790a9b71785f5ffef7c1e0fde5be7dcf814b97ea + a modified dockerfile (xref: https://github.com/kubernetes/kube-state-metrics/issues/1770)
+  tag: v2.5.0-additional-metric-types-88d189cf
+  # v2.5.0-additional-metric-types-88d189cf  is based on commit 88d189cff740634baf880083157a03dc380fca86 of PR https://github.com/kubernetes/kube-state-metrics/pull/1777
   pullPolicy: IfNotPresent
 
 securityContext:
@@ -31,3 +31,15 @@ resources:
 
 # List of CRs to monitor
 monitoredResources:
+  # first level of the map can be seen as a "group" to combine/organize multiple CRs.
+  # This will lead to the first part of the generated metric name e.g. `flux_`
+  #
+  # flux:
+  #   second level of the map should be used to name (in singular) the name of the CR.
+  #   This will lead to second part of the generated metric name e.g. `flux_gitrepository_`
+  #
+  #   gitrepository:
+  #     group: samplecontroller.k8s.io # group is the API group the CR belongs to
+  #     kind: Foo                      # kind is the kind of the CR
+  #     version: v1alpha1              # version is the version of the CR
+  #     plural: foos                   # plural has to be the lower case plural string of kind - must be done as KSM register resources as plural (doesn't matter if core Kubernetes or CRs)
