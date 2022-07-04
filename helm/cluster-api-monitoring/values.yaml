@@ -8,8 +8,8 @@ project:
 image:
   registry: quay.io
   name: giantswarm/kube-state-metrics
-  tag: v2.5.0-additional-metric-types-88d189cf
-  # v2.5.0-additional-metric-types-88d189cf  is based on commit 88d189cff740634baf880083157a03dc380fca86 of PR https://github.com/kubernetes/kube-state-metrics/pull/1777
+  tag: 2.5.0-additional-metric-types-e6eda699
+  # v2.5.0-additional-metric-types-e6eda699  is based on commit e6eda699 of PR https://github.com/kubernetes/kube-state-metrics/pull/1777
   pullPolicy: IfNotPresent
 
 securityContext:

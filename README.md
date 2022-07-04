@@ -42,6 +42,7 @@ labelsFromPath:
 metrics:
   - name: status_conditions
     each:
+      type: Gauge
       gauge:
         path:
           - status
