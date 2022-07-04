@@ -10,7 +10,7 @@ rules:
   - apiGroups:
       - {{ $val.group }}
     resources:
-      - {{ $key.plural }}
+      - {{ $val.plural }}
     verbs:
       - get
       - list
