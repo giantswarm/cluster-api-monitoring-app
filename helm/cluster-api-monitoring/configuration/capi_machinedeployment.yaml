@@ -1,0 +1,81 @@
+labelsFromPath:
+  version: [spec, template, spec, version]
+  name: [metadata, name]
+  namespace: [metadata, namespace]
+  cluster: [spec, template, spec, clusterName]
+metrics:
+  - name: status_conditions
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+        labelFromKey: reason
+        labelsFromPath:
+          type: [type]
+  - name: spec_replicas
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - spec
+          - replicas
+  - name: status_replicas
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - replicas
+  - name: status_ready_replicas
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - readyReplicas
+  - name: status_available_replicas
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - availableReplicas
+  - name: status_unavailable_replicas
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - unavailableReplicas
+  - name: info
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          infrastructure_reference_name:
+            [spec, template, spec, infrastructureRef, name]
+          infrastructure_reference_type:
+            [spec, template, spec, infrastructureRef, kind]
+          bootstrap_configuration_reference_name:
+            [spec, template, spec, bootstrap, configRef, name]
+          bootstrap_configuration_reference_type:
+            [spec, template, spec, bootstrap, configRef, type]
+          failure_domain: [spec, template, spec, failureDomain]
+  - name: status_phase
+    each:
+      type: StateSet
+      stateSet:
+        path:
+          - status
+          - phase
+        list:
+          - Running
+          - ScalingUp
+          - ScalingDown
+          - Failed
+          - Unknown
+        labelName: phase
