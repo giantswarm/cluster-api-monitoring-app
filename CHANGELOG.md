@@ -9,7 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Add
 
-- initial support for cluster CR monitoring
+- initial support for Cluster API machinehealthcheck
+  - `capi_machinehealthcheck_status_current_healthy`
+  - `capi_machinehealthcheck_status_expected_machines`
+  - `capi_machinehealthcheck_status_remediations_allowed`
 - initialize the "empty" app with serviceaccount only
 
 [Unreleased]: https://github.com/giantswarm/{APP-NAME}/tree/main

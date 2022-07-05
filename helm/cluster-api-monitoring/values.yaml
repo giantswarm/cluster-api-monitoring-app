@@ -43,3 +43,9 @@ monitoredResources:
   #     kind: Foo                      # kind is the kind of the CR
   #     version: v1alpha1              # version is the version of the CR
   #     plural: foos                   # plural has to be the lower case plural string of kind - required for ClusterRole templating and must be done as KSM register resources as plural (doesn't matter if core Kubernetes or CRs)
+  capi:
+    machinehealthcheck:
+      group: cluster.x-k8s.io
+      kind: MachineHealthCheck
+      version: v1beta1
+      plural: machinehealthchecks
