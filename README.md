@@ -13,11 +13,24 @@ Here we define the cluster-api-monitoring chart with its templates and default c
 
 As the current alpha feature has a wide range of limitations and the discussion about new features is still ongoing with the KSM community we had to build this app from a recently created fork of KSM. The goal of this fork is a contribution back to the upstream community but was initialy used to verify if it's worth the effort to maintain a custom metrics exporter, based on KSM `golang` packages.
 
-To not harm the existing `KSM` installation in `kube-system` and make fast progress towards monitoring of ClusterAPI related CRs + the fact that `KSM` is running from a forked version we decided to start creating a new app.
+To not harm the existing `KSM` installation in `kube-system` and make fast progress towards monitoring of ClusterAPI related CRs + the fact that `KSM` is running from a forked version we decided to start creating a new app (Please note the [container image build](#container-image-build) section).
 
 **Who should use it?**
 
 Everyone which needs information from `CustomResource` objects exposed as metric.
+
+## Container image build
+
+> this is only needed as long as PR #1777 on `kube-state-metrics` is open
+
+- [open upstream PR](https://github.com/kubernetes/kube-state-metrics/pull/1777)
+- [open upstream Issue](https://github.com/kubernetes/kube-state-metrics/issues/1755)
+- container image build based on PR #1777 / commit `e6eda699`
+  - image can be build by
+    1. checkout commit
+    1. run `make container`
+    1. run `docker tag gcr.io/k8s-staging-kube-state-metrics/kube-state-metrics-amd64:v2.5.0 quay.io/giantswarm/kube-state-metrics:v2.5.0-additional-metric-types-<commitID>`
+    1. run `docker push quay.io/giantswarm/kube-state-metrics:v2.5.0-additional-metric-types-<commitID>`
 
 ## Installing
 
