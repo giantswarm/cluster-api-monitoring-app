@@ -41,7 +41,7 @@ There are several ways to install this app onto a workload cluster.
 
 ## Configuring
 
-If you for example want the conditions of all CRs of type `GitRepository` exposed as metric `flux_gitrepositories_status_conditions` there are two things to do:
+If you for example want the conditions of all CRs of type `GitRepository` exposed as metric `flux_gitrepository_status_conditions` there are two things to do:
 
 First of all, `cluster-api-monitoring` needs a configuration to know how the status condition should be generated as metric.
 
