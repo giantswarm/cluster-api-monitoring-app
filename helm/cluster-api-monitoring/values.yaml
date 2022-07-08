@@ -54,3 +54,13 @@ monitoredResources:
       kind: MachineDeployment
       version: v1beta1
       plural: machinedeployments
+    openstackcluster:
+      group: infrastructure.cluster.x-k8s.io
+      kind: OpenStackCluster
+      version: v1alpha5
+      plural: openstackclusters
+    openstackmachine:
+      group: infrastructure.cluster.x-k8s.io
+      kind: OpenStackMachine
+      version: v1alpha5
+      plural: openstackmachines
