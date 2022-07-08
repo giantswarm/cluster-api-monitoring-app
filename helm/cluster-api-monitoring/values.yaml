@@ -69,3 +69,8 @@ monitoredResources:
       kind: Machine
       version: v1beta1
       plural: machines
+    cluster:
+      group: cluster.x-k8s.io
+      kind: Cluster
+      version: v1beta1
+      plural: clusters
