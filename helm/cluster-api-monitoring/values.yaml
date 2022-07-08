@@ -30,6 +30,12 @@ resources:
     memory: 30Mi
 
 # List of CRs to monitor
+# This list is defined in the config repo per installation and will merged together with
+# default values from the config repo.
+# Failure handling:
+# - It's possible to define a monitoredResources, even if it's not implemented in the
+#   in the app itself. If no configuration file under helm/cluster-api-monitoring/configuration
+#   for such a metric isn't defined, the monitoredResource will get ignored.
 monitoredResources:
   # first level of the map can be seen as a "group" to combine/organize multiple CRs.
   # This will lead to the first part of the generated metric name e.g. `flux_`
