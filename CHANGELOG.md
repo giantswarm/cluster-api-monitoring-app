@@ -13,6 +13,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `capi_machinehealthcheck_status_current_healthy`
   - `capi_machinehealthcheck_status_expected_machines`
   - `capi_machinehealthcheck_status_remediations_allowed`
+- initial support for Cluster API machinedeployments
+  - `capi_machinedeployment_info`
+  - `capi_machinedeployment_status_conditions`
+  - `capi_machinedeployment_spec_replicas`
+  - `capi_machinedeployment_status_replicas`
+  - `capi_machinedeployment_status_ready_replicas`
+  - `capi_machinedeployment_status_available_replicas`
+  - `capi_machinedeployment_status_unavailable_replicas`
+  - `capi_machinedeployment_status_phase`
 - initialize the "empty" app with serviceaccount only
 
 [Unreleased]: https://github.com/giantswarm/{APP-NAME}/tree/main

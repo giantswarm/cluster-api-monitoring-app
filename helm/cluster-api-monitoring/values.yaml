@@ -49,3 +49,8 @@ monitoredResources:
       kind: MachineHealthCheck
       version: v1beta1
       plural: machinehealthchecks
+    machinedeployment:
+      group: cluster.x-k8s.io
+      kind: MachineDeployment
+      version: v1beta1
+      plural: machinedeployments
