@@ -1,0 +1,51 @@
+labelsFromPath:
+  name: [metadata, name]
+  cluster: [spec, clusterName]
+  namespace: [metadata, namespace]
+metrics:
+  - name: info
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          version: [spec, version]
+          failure_domain: [spec, failureDomain]
+          provider_id: [spec, providerID]
+  - name: status_nodeinfo
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          kernel_version: [status, nodeInfo, kernelVersion]
+          container_runtime_version: [status, nodeInfo, containerRuntimeVersion]
+          os_image: [status, nodeInfo, osImage]
+          kubelet_version: [status, nodeInfo, kubeletVersion]
+          kube_proxy_version: [status, nodeInfo, kubeProxyVersion]
+  - name: status_phase
+    each:
+      type: StateSet
+      stateSet:
+        path:
+          - status
+          - phase
+        list:
+          - Pending
+          - Provisioning
+          - Provisioned
+          - Deleting
+          - Failed
+          - Unknown
+          - Running
+        labelName: phase
+  - name: status_conditions
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+        labelFromKey: reason
+        labelsFromPath:
+          type: [type]
