@@ -1,0 +1,26 @@
+labelsFromPath:
+  name: [metadata, name]
+  namespace: [metadata, namespace]
+  cluster: [spec, clusterName]
+metrics:
+  - name: status_current_healthy
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - currentHealthy
+  - name: status_expected_machines
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - expectedMachines
+  - name: status_remediations_allowed
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - remediationsAllowed
