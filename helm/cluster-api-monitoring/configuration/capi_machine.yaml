@@ -1,6 +1,6 @@
 labelsFromPath:
   name: [metadata, name]
-  cluster: [spec, clusterName]
+  cluster_name: [spec, clusterName]
   namespace: [metadata, namespace]
 metrics:
   - name: info
@@ -33,19 +33,34 @@ metrics:
           - Provisioning
           - Provisioned
           - Deleting
+          - Deleted
           - Failed
           - Unknown
           - Running
         labelName: phase
-  - name: status_conditions
-    each:
-      type: Gauge
-      gauge:
+  - each:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
         path:
           - status
           - conditions
         valueFrom:
           - status
-        labelFromKey: reason
-        labelsFromPath:
-          type: [type]
+      type: StateSet
+    name: status_conditions
+    help: The current status conditions of a machine.
+  - each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+    name: created
+    help: Unix creation timestamp.

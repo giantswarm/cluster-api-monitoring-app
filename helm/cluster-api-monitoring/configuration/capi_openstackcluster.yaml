@@ -1,7 +1,7 @@
 labelsFromPath:
   name: [metadata, name]
   namespace: [metadata, namespace]
-  cluster: [metadata, name]
+  cluster_name: [metadata, name]
 metrics:
   - name: info
     each:
@@ -31,3 +31,11 @@ metrics:
         labelsFromPath:
           ip: [status, bastion, floatingIP]
           id: [status, bastion, id]
+  - each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+    name: created
+    help: Unix creation timestamp.

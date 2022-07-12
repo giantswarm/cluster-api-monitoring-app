@@ -2,20 +2,26 @@ labelsFromPath:
   version: [spec, template, spec, version]
   name: [metadata, name]
   namespace: [metadata, namespace]
-  cluster: [spec, template, spec, clusterName]
+  cluster_name: [spec, clusterName]
 metrics:
   - name: status_conditions
+    help: The current status conditions of a machinedeployment.
     each:
-      type: Gauge
-      gauge:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
         path:
           - status
           - conditions
         valueFrom:
           - status
-        labelFromKey: reason
-        labelsFromPath:
-          type: [type]
+      type: StateSet
   - name: spec_replicas
     each:
       type: Gauge
@@ -30,20 +36,23 @@ metrics:
         path:
           - status
           - replicas
-  - name: status_ready_replicas
+        nilIsZero: true
+  - name: status_replicas_ready
     each:
       type: Gauge
       gauge:
         path:
           - status
           - readyReplicas
-  - name: status_available_replicas
+        nilIsZero: true
+  - name: status_replicas_available
     each:
       type: Gauge
       gauge:
         path:
           - status
           - availableReplicas
+        nilIsZero: true
   - name: status_unavailable_replicas
     each:
       type: Gauge
@@ -51,6 +60,7 @@ metrics:
         path:
           - status
           - unavailableReplicas
+        nilIsZero: true
   - name: info
     each:
       type: Info
@@ -79,3 +89,19 @@ metrics:
           - Failed
           - Unknown
         labelName: phase
+  - each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+    name: created
+    help: Unix creation timestamp.
+  - each:
+      gauge:
+        nilIsZero: true
+        path:
+          - spec
+          - paused
+      type: Gauge
+    name: spec_paused

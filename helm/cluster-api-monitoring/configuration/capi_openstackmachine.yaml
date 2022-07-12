@@ -1,7 +1,7 @@
 labelsFromPath:
   name: [metadata, name]
   namespace: [metadata, namespace]
-  cluster: [metadata, labels, cluster.x-k8s.io/cluster-name]
+  cluster_name: [metadata, labels, cluster.x-k8s.io/cluster-name]
 metrics:
   - name: info
     each:
@@ -45,3 +45,11 @@ metrics:
       info:
         labelsFromPath:
           reason: [status, failureReason]
+  - each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+    name: created
+    help: Unix creation timestamp.
