@@ -1,0 +1,87 @@
+labelsFromPath:
+  name: [metadata, name]
+  namespace: [metadata, namespace]
+  uid: [metadata, uid]
+  cluster_name: [spec, clusterName]
+metrics:
+  - each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+    name: created
+    help: Unix creation timestamp.
+  - each:
+      gauge:
+        path:
+          - status
+          - availableReplicas
+        nilIsZero: true
+      type: Gauge
+    name: status_available_replicas
+  - each:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+      type: StateSet
+    name: status_conditions
+    help: The current status conditions of a machineset.
+  - each:
+      gauge:
+        path:
+          - status
+          - replicas
+        nilIsZero: true
+      type: Gauge
+    name: status_replicas
+  - each:
+      gauge:
+        path:
+          - status
+          - fullyLabeledReplicas
+      type: Gauge
+    name: status_fully_labeled_replicas
+  - each:
+      gauge:
+        path:
+          - status
+          - readyReplicas
+        nilIsZero: true
+      type: Gauge
+    name: status_ready_replicas
+  - each:
+      gauge:
+        path:
+          - spec
+          - replicas
+        nilIsZero: true
+      type: Gauge
+    name: spec_replicas
+  - each:
+      info:
+        labelsFromPath:
+          owner_is_controller:
+            - controller
+          owner_kind:
+            - kind
+          owner_name:
+            - name
+          owner_uid:
+            - uid
+        path:
+          - metadata
+          - ownerReferences
+      type: Info
+    name: owner

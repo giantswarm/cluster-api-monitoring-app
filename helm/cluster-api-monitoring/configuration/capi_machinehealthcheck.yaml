@@ -1,7 +1,7 @@
 labelsFromPath:
   name: [metadata, name]
   namespace: [metadata, namespace]
-  cluster: [spec, clusterName]
+  cluster_name: [spec, clusterName]
 metrics:
   - name: status_current_healthy
     each:
@@ -24,3 +24,11 @@ metrics:
         path:
           - status
           - remediationsAllowed
+  - each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+    name: created
+    help: Unix creation timestamp.

@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/giantswarm/cluster-api-monitoring.svg?style=shield)](https://circleci.com/gh/giantswarm/cluster-api-monitoring)
+[![CircleCI](https://circleci.com/gh/giantswarm/cluster-api-monitoring-app.svg?style=shield)](https://circleci.com/gh/giantswarm/cluster-api-monitoring-app)
 
 # cluster-api-monitoring chart
 

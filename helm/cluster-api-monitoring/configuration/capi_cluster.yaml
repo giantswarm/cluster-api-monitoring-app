@@ -1,18 +1,23 @@
 labelsFromPath:
   name: [metadata, name]
-  cluster: [metadata, name]
+  cluster_name: [metadata, name]
   namespace: [metadata, namespace]
 metrics:
   - name: status_conditions
+    help: The current status conditions of a cluster.
     each:
-      type: Gauge
-      gauge:
+      type: StateSet
+      stateSet:
         path:
           - status
           - conditions
+        list:
+          - "True"
+          - "False"
+          - "Unknown"
         valueFrom:
           - status
-        labelFromKey: reason
+        labelName: status
         labelsFromPath:
           type: [type]
   - name: info
@@ -41,3 +46,19 @@ metrics:
           - Failed
           - Unknown
         labelName: phase
+  - name: created
+    help: Unix creation timestamp.
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+  - name: spec_paused
+    each:
+      type: Gauge
+      gauge:
+        nilIsZero: true
+        path:
+          - spec
+          - paused

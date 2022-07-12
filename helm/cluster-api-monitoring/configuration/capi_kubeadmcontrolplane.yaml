@@ -1,0 +1,104 @@
+labelsFromPath:
+  name: [metadata, name]
+  namespace: [metadata, namespace]
+  uid: [metadata, uid]
+  cluster_name: [metadata, ownerReferences, "[kind=Cluster]", name]
+metrics:
+  - each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+    name: created
+    help: Unix creation timestamp.
+  - each:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+      type: StateSet
+    name: status_conditions
+    help: The current status conditions of a kubeadmcontrolplane.
+  - each:
+      gauge:
+        path:
+          - status
+          - replicas
+        nilIsZero: true
+      type: Gauge
+    name: status_replicas
+  - each:
+      gauge:
+        path:
+          - status
+          - readyReplicas
+        nilIsZero: true
+      type: Gauge
+    name: status_replicas_ready
+  - each:
+      gauge:
+        path:
+          - status
+          - unavailableReplicas
+        nilIsZero: true
+      type: Gauge
+    name: status_replicas_unavailable
+  - each:
+      gauge:
+        path:
+          - status
+          - updatedReplicas
+        nilIsZero: true
+      type: Gauge
+    name: status_replicas_updated
+  - each:
+      gauge:
+        path:
+          - spec
+          - replicas
+      type: Gauge
+    name: spec_replicas
+  - each:
+      gauge:
+        path:
+          - spec
+          - rolloutStrategy
+          - rollingUpdate
+          - maxSurge
+      type: Gauge
+    name: spec_strategy_rollingupdate_max_surge
+  - each:
+      info:
+        labelsFromPath:
+          owner_is_controller:
+            - controller
+          owner_kind:
+            - kind
+          owner_name:
+            - name
+          owner_uid:
+            - uid
+        path:
+          - metadata
+          - ownerReferences
+      type: Info
+    name: owner
+  - each:
+      info:
+        labelsFromPath:
+          version:
+            - spec
+            - version
+      type: Info
+    name: info
