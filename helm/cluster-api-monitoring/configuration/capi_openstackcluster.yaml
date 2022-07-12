@@ -1,0 +1,33 @@
+labelsFromPath:
+  name: [metadata, name]
+  namespace: [metadata, namespace]
+  cluster: [metadata, name]
+metrics:
+  - name: info
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          external_network: [spec, externalNetworkId]
+          control_plane_endpoint_ip: [spec, controlPlaneEndpoint, host]
+          control_plane_endpoint_port: [spec, controlPlaneEndpoint, port]
+  - name: status_failure
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          reason: [status, failureReason]
+  - name: status_loadbalancer
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          ip: [status, network, apiServerLoadBalancer, ip]
+          id: [status, network, apiServerLoadBalancer, id]
+  - name: status_bastion
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          ip: [status, bastion, floatingIP]
+          id: [status, bastion, id]
