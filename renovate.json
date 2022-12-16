@@ -1,7 +1,7 @@
 {
   "extends": [
     "config:base",
-    ":reviewer(team:area-kaas)"
+    ":reviewer(team:team-atlas)"
   ],
   "labels": ["dependencies", "renovate"],
   "dependencyDashboard": true,
