@@ -6,10 +6,9 @@ project:
   commit: "[[ .SHA ]]"
 
 image:
-  registry: quay.io
+  registry: docker.io
   name: giantswarm/kube-state-metrics
-  tag: v2.5.0-additional-metric-types-f2659da
-  # v2.5.0-additional-metric-types-f2659da  is based on commit f2659da of PR https://github.com/kubernetes/kube-state-metrics/pull/1777
+  tag: v2.6.0
   pullPolicy: IfNotPresent
 
 securityContext:
