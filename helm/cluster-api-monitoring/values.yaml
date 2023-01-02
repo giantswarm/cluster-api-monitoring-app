@@ -27,7 +27,6 @@ resources:
     memory: 30Mi
   requests:
     memory: 30Mi
-
 # List of CRs to monitor
 # This list is defined in the config repo per installation and will merged together with
 # default values from the config repo.
@@ -35,15 +34,15 @@ resources:
 # - It's possible to define a monitoredResources, even if it's not implemented in the
 #   in the app itself. If no configuration file under helm/cluster-api-monitoring/configuration
 #   for such a metric isn't defined, the monitoredResource will get ignored.
-monitoredResources:
-  # first level of the map can be seen as a "group" to combine/organize multiple CRs.
-  # This will lead to the first part of the generated metric name e.g. `flux_`
-  #
-  # flux:
-  #   second level of the map should be used to name (in singular) the name of the CR.
-  #   This will lead to second part of the generated metric name e.g. `flux_gitrepository_`
-  #
-  #   gitrepository:
-  #     group: samplecontroller.k8s.io # group is the API group the CR belongs to
-  #     kind: Foo                      # kind is the kind of the CR
-  #     version: v1alpha1              # version is the version of the CR
+# monitoredResources:
+# first level of the map can be seen as a "group" to combine/organize multiple CRs.
+# This will lead to the first part of the generated metric name e.g. `flux_`
+#
+# flux:
+#   second level of the map should be used to name (in singular) the name of the CR.
+#   This will lead to second part of the generated metric name e.g. `flux_gitrepository_`
+#
+#   gitrepository:
+#     group: samplecontroller.k8s.io # group is the API group the CR belongs to
+#     kind: Foo                      # kind is the kind of the CR
+#     version: v1alpha1              # version is the version of the CR
