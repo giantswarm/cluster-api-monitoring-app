@@ -76,7 +76,6 @@ monitoredResources:
       group: source.toolkit.fluxcd.io
       kind: GitRepository
       version: v1beta2
-      plural: gitrepositories
 ```
 
 ### no op (no operation) mode
