@@ -4,17 +4,43 @@ metadata:
   name: {{include "name" .}}
   labels: {{- include "labels.common" . | nindent 4}}
 rules:
-{{- range $componentKey, $componentVal := .Values.monitoredResources }}
-  {{- range $key, $val := $componentVal }}
-    {{- if $.Files.Get (printf "configuration/%s_%s.yaml" $componentKey $key) }}
+{{- /*
+range over all `monitoredResources`, get all `groups` and create a rule per `group`.
+Result will look like:
+```yaml
   - apiGroups:
-      - {{ $val.group }}
+      - cluster.x-k8s.io
     resources:
-      - {{ $val.plural }}
+      - "*"
     verbs:
       - get
       - list
       - watch
+  - apiGroups:
+      - controlplane.cluster.x-k8s.io
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
+```
+*/ -}}
+{{- $monitoredApiGroups := list -}}
+{{- range $componentKey, $componentVal := .Values.monitoredResources -}}
+  {{- range $key, $val := $componentVal -}}
+    {{- if $.Files.Get (printf "configuration/%s_%s.yaml" $componentKey $key) -}}
+    {{ $monitoredApiGroups = append $monitoredApiGroups $val.group }}
     {{- end }}
   {{- end }}
+{{- end }}
+{{- range $monitoredApiGroups | uniq }}
+  - apiGroups:
+      - {{ . }}
+    resources:
+      - "*"
+    verbs:
+      - get
+      - list
+      - watch
 {{- end }}

@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  labels: {{- include "labels.common" . | nindent 4 }}
+  name: {{include "name" .}}
+  namespace: {{.Release.Namespace}}
+spec:
+  namespaceSelector:
+    matchNames:
+    - {{.Release.Namespace}}
+  podMetricsEndpoints:
+  - targetPort: 8080
+  selector:
+    matchLabels:
+      {{- include "labels.selector" . | nindent 6 }}

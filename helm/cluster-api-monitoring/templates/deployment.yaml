@@ -21,7 +21,7 @@ spec:
           imagePullPolicy: {{.Values.image.pullPolicy}}
           args:
             - --custom-resource-state-config-file=/data/config.yaml
-            - --resources={{ include "monitoredResources.list" . }}
+            - --custom-resource-state-only=true
           ports:
             - name: metrics
               containerPort: 8080

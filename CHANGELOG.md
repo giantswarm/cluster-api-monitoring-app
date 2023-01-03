@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Moved from `ServiceMonitor` to `PodMonitor` as there the service itself isn't used
+- Remove `plural` from configuration as not needed anymore for `kube-state-metrics` to run
+- Update to `kube-state-metrics` version `v2.7.0`
 - Change back to upstream `kube-state-metrics` image
 
 ## [1.0.0] - 2022-07-12
