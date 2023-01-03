@@ -1,18 +1,30 @@
 labelsFromPath:
-  name: [metadata, name]
-  namespace: [metadata, namespace]
-  uid: [metadata, uid]
-  cluster_name: [metadata, ownerReferences, "[kind=Cluster]", name]
+  cluster_name:
+    - metadata
+    - ownerReferences
+    - "[kind=Cluster]"
+    - name
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
 metrics:
-  - each:
+  - name: created
+    help: Unix creation timestamp.
+    each:
       gauge:
         path:
           - metadata
           - creationTimestamp
       type: Gauge
-    name: created
-    help: Unix creation timestamp.
-  - each:
+  - name: status_condition
+    help: The condition of a kubeadmcontrolplane.
+    each:
       stateSet:
         labelName: status
         labelsFromPath:
@@ -28,48 +40,53 @@ metrics:
         valueFrom:
           - status
       type: StateSet
-    name: status_conditions
-    help: The current status conditions of a kubeadmcontrolplane.
-  - each:
+  - name: status_replicas
+    help: The number of replicas per kubeadmcontrolplane.
+    each:
       gauge:
         path:
           - status
           - replicas
         nilIsZero: true
       type: Gauge
-    name: status_replicas
-  - each:
+  - name: status_replicas_ready
+    help: The number of ready replicas per kubeadmcontrolplane.
+    each:
       gauge:
         path:
           - status
           - readyReplicas
         nilIsZero: true
       type: Gauge
-    name: status_replicas_ready
-  - each:
+  - name: status_replicas_unavailable
+    help: The number of unavailable replicas per kubeadmcontrolplane.
+    each:
       gauge:
         path:
           - status
           - unavailableReplicas
         nilIsZero: true
       type: Gauge
-    name: status_replicas_unavailable
-  - each:
+  - name: status_replicas_updated
+    help: The number of updated replicas per kubeadmcontrolplane.
+    each:
       gauge:
         path:
           - status
           - updatedReplicas
         nilIsZero: true
       type: Gauge
-    name: status_replicas_updated
-  - each:
+  - name: spec_replicas
+    help: The number of desired machines for a kubeadmcontrolplane.
+    each:
       gauge:
         path:
           - spec
           - replicas
       type: Gauge
-    name: spec_replicas
-  - each:
+  - name: spec_strategy_rollingupdate_max_surge
+    help: Maximum number of replicas that can be scheduled above the desired number of replicas during a rolling update of a kubeadmcontrolplane.
+    each:
       gauge:
         path:
           - spec
@@ -77,8 +94,9 @@ metrics:
           - rollingUpdate
           - maxSurge
       type: Gauge
-    name: spec_strategy_rollingupdate_max_surge
-  - each:
+  - name: owner
+    help: Owner references.
+    each:
       info:
         labelsFromPath:
           owner_is_controller:
@@ -93,12 +111,23 @@ metrics:
           - metadata
           - ownerReferences
       type: Info
-    name: owner
-  - each:
+  - name: info
+    help: Information about a kubeadmcontrolplane.
+    each:
       info:
         labelsFromPath:
           version:
             - spec
             - version
       type: Info
-    name: info
+  - name: annotation_paused
+    help: Whether the kubeadmcontrolplane is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info

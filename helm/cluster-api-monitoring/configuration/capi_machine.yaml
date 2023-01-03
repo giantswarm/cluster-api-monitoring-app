@@ -1,44 +1,100 @@
 labelsFromPath:
-  name: [metadata, name]
-  cluster_name: [spec, clusterName]
-  namespace: [metadata, namespace]
+  cluster_name:
+    - spec
+    - clusterName
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
 metrics:
   - name: info
+    help: Information about a machine.
     each:
-      type: Info
       info:
         labelsFromPath:
-          version: [spec, version]
-          failure_domain: [spec, failureDomain]
-          provider_id: [spec, providerID]
-  - name: status_nodeinfo
-    each:
-      type: Info
-      info:
-        labelsFromPath:
-          kernel_version: [status, nodeInfo, kernelVersion]
-          container_runtime_version: [status, nodeInfo, containerRuntimeVersion]
-          os_image: [status, nodeInfo, osImage]
-          kubelet_version: [status, nodeInfo, kubeletVersion]
-          kube_proxy_version: [status, nodeInfo, kubeProxyVersion]
-  - name: status_phase
-    each:
-      type: StateSet
-      stateSet:
-        path:
+          container_runtime_version:
           - status
-          - phase
+          - nodeInfo
+          - containerRuntimeVersion
+          failure_domain:
+          - spec
+          - failureDomain
+          kernel_version:
+          - status
+          - nodeInfo
+          - kernelVersion
+          kubelet_version:
+          - status
+          - nodeInfo
+          - kubeletVersion
+          kube_proxy_version:
+          - status
+          - nodeInfo
+          - kubeProxyVersion
+          os_image:
+          - status
+          - nodeInfo
+          - osImage
+          provider_id:
+          - spec
+          - providerID
+          version:
+          - spec
+          - version
+      type: Info
+  - name: addresses
+    help: Address information about a machine.
+    each:
+      info:
+        path:
+        - status
+        - addresses
+        labelsFromPath:
+          type:
+          - type
+          address:
+          - address
+      type: Info
+  - name: status_noderef
+    help: Information about the node reference of a machine.
+    each:
+      info:
+        labelsFromPath:
+          node_name:
+            - status
+            - nodeRef
+            - name
+          node_uid:
+            - status
+            - nodeRef
+            - uid
+      type: Info
+  - name: status_phase
+    help: The machines current phase.
+    each:
+      stateSet:
+        labelName: phase
         list:
           - Pending
           - Provisioning
           - Provisioned
+          - Running
           - Deleting
           - Deleted
           - Failed
           - Unknown
-          - Running
-        labelName: phase
-  - each:
+        path:
+          - status
+          - phase
+      type: StateSet
+  - name: status_condition
+    help: The condition of a machine.
+    each:
       stateSet:
         labelName: status
         labelsFromPath:
@@ -54,13 +110,39 @@ metrics:
         valueFrom:
           - status
       type: StateSet
-    name: status_conditions
-    help: The current status conditions of a machine.
-  - each:
+  - name: created
+    help: Unix creation timestamp.
+    each:
       gauge:
         path:
           - metadata
           - creationTimestamp
       type: Gauge
-    name: created
-    help: Unix creation timestamp.
+  - name: annotation_paused
+    help: Whether the machine is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info
+  - name: owner
+    help: Owner references.
+    each:
+      info:
+        labelsFromPath:
+          owner_is_controller:
+            - controller
+          owner_kind:
+            - kind
+          owner_name:
+            - name
+          owner_uid:
+            - uid
+        path:
+          - metadata
+          - ownerReferences
+      type: Info

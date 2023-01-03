@@ -1,43 +1,75 @@
 labelsFromPath:
-  name: [metadata, name]
-  cluster_name: [metadata, name]
-  namespace: [metadata, namespace]
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
 metrics:
-  - name: status_conditions
-    help: The current status conditions of a cluster.
+  - name: status_condition
+    help: The condition of a cluster.
     each:
-      type: StateSet
       stateSet:
-        path:
-          - status
-          - conditions
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
         list:
           - "True"
           - "False"
-          - "Unknown"
-        valueFrom:
-          - status
-        labelName: status
-        labelsFromPath:
-          type: [type]
-  - name: info
-    each:
-      type: Info
-      info:
-        labelsFromPath:
-          control_plane_endpoint_host: [spec, controlPlaneEndpoint, host]
-          control_plane_endpoint_port: [spec, controlPlaneEndpoint, port]
-          control_plane_reference_kind: [spec, controlPlaneRef, kind]
-          control_plane_reference_name: [spec, controlPlaneRef, name]
-          infrastructure_reference_kind: [spec, infrastructureRef, kind]
-          infrastructure_reference_name: [spec, infrastructureRef, name]
-  - name: status_phase
-    each:
-      type: StateSet
-      stateSet:
+          - Unknown
         path:
           - status
-          - phase
+          - conditions
+        valueFrom:
+          - status
+      type: StateSet
+  - name: info
+    help: Information about a cluster.
+    each:
+      info:
+        labelsFromPath:
+          topology_version:
+            - spec
+            - topology
+            - version
+          topology_class:
+            - spec
+            - topology
+            - class
+          control_plane_endpoint_host:
+            - spec
+            - controlPlaneEndpoint
+            - host
+          control_plane_endpoint_port:
+            - spec
+            - controlPlaneEndpoint
+            - port
+          control_plane_reference_kind:
+            - spec
+            - controlPlaneRef
+            - kind
+          control_plane_reference_name:
+            - spec
+            - controlPlaneRef
+            - name
+          infrastructure_reference_kind:
+            - spec
+            - infrastructureRef
+            - kind
+          infrastructure_reference_name:
+            - spec
+            - infrastructureRef
+            - name
+      type: Info
+  - name: status_phase
+    help: The clusters current phase.
+    each:
+      stateSet:
+        labelName: phase
         list:
           - Pending
           - Provisioning
@@ -45,20 +77,35 @@ metrics:
           - Deleting
           - Failed
           - Unknown
-        labelName: phase
+        path:
+          - status
+          - phase
+      type: StateSet
   - name: created
     help: Unix creation timestamp.
     each:
-      type: Gauge
       gauge:
         path:
           - metadata
           - creationTimestamp
-  - name: spec_paused
-    each:
       type: Gauge
+  - name: spec_paused
+    help: Whether the cluster is paused and any of its resources will not be processed by the controllers.
+    each:
       gauge:
         nilIsZero: true
         path:
           - spec
           - paused
+      type: Gauge
+  - name: annotation_paused
+    help: Whether the cluster is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info

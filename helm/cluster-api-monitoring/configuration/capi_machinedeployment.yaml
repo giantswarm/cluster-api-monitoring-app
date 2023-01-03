@@ -1,11 +1,19 @@
 labelsFromPath:
-  version: [spec, template, spec, version]
-  name: [metadata, name]
-  namespace: [metadata, namespace]
-  cluster_name: [spec, clusterName]
+  cluster_name:
+    - spec
+    - clusterName
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
 metrics:
-  - name: status_conditions
-    help: The current status conditions of a machinedeployment.
+  - name: status_condition
+    help: The condition of a machinedeployment.
     each:
       stateSet:
         labelName: status
@@ -23,85 +31,176 @@ metrics:
           - status
       type: StateSet
   - name: spec_replicas
+    help: The number of desired machines for a machinedeployment.
     each:
-      type: Gauge
       gauge:
         path:
           - spec
           - replicas
-  - name: status_replicas
-    each:
       type: Gauge
+  - name: spec_strategy_rollingupdate_max_surge
+    help: Maximum number of replicas that can be scheduled above the desired number of replicas during a rolling update of a machinedeployment.
+    each:
+      gauge:
+        path:
+          - spec
+          - strategy
+          - rollingUpdate
+          - maxSurge
+      type: Gauge
+  - name: spec_strategy_rollingupdate_max_unavailable
+    help: Maximum number of unavailable replicas during a rolling update of a machinedeployment.
+    each:
+      gauge:
+        path:
+          - spec
+          - strategy
+          - rollingUpdate
+          - maxUnavailable
+      type: Gauge
+  - name: status_replicas
+    help: The number of replicas per machinedeployment.
+    each:
       gauge:
         path:
           - status
           - replicas
         nilIsZero: true
-  - name: status_replicas_ready
-    each:
       type: Gauge
+  - name: status_replicas_ready
+    help: The number of ready replicas per machinedeployment.
+    each:
       gauge:
         path:
           - status
           - readyReplicas
         nilIsZero: true
-  - name: status_replicas_available
-    each:
       type: Gauge
+  - name: status_replicas_available
+    help: The number of available replicas per machinedeployment.
+    each:
       gauge:
         path:
           - status
           - availableReplicas
         nilIsZero: true
-  - name: status_unavailable_replicas
-    each:
       type: Gauge
+  - name: status_replicas_unavailable
+    help: The number of unavailable replicas per machinedeployment.
+    each:
       gauge:
         path:
           - status
           - unavailableReplicas
         nilIsZero: true
+      type: Gauge
+  - name: status_replicas_updated
+    help: The number of updated replicas per machinedeployment.
+    each:
+      gauge:
+        path:
+          - status
+          - updatedReplicas
+        nilIsZero: true
+      type: Gauge
   - name: info
     each:
       type: Info
       info:
         labelsFromPath:
           infrastructure_reference_name:
-            [spec, template, spec, infrastructureRef, name]
-          infrastructure_reference_type:
-            [spec, template, spec, infrastructureRef, kind]
+            - spec
+            - template
+            - spec
+            - infrastructureRef
+            - name
+          infrastructure_reference_kind:
+            - spec
+            - template
+            - spec
+            - infrastructureRef
+            - kind
           bootstrap_configuration_reference_name:
-            [spec, template, spec, bootstrap, configRef, name]
-          bootstrap_configuration_reference_type:
-            [spec, template, spec, bootstrap, configRef, type]
-          failure_domain: [spec, template, spec, failureDomain]
+            - spec
+            - template
+            - spec
+            - bootstrap
+            - configRef
+            - name
+          bootstrap_configuration_reference_kind:
+            - spec
+            - template
+            - spec
+            - bootstrap
+            - configRef
+            - kind
+          failure_domain:
+            - spec
+            - template
+            - spec
+            - failureDomain
+          version:
+            - spec
+            - template
+            - spec
+            - version
   - name: status_phase
+    help: The machinedeployments current phase.
     each:
-      type: StateSet
       stateSet:
+        labelName: phase
+        list:
+          - ScalingUp
+          - ScalingDown
+          - Running
+          - Failed
+          - Unknown
         path:
           - status
           - phase
-        list:
-          - Running
-          - ScalingUp
-          - ScalingDown
-          - Failed
-          - Unknown
-        labelName: phase
-  - each:
+      type: StateSet
+  - name: created
+    help: Unix creation timestamp.
+    each:
       gauge:
         path:
           - metadata
           - creationTimestamp
       type: Gauge
-    name: created
-    help: Unix creation timestamp.
-  - each:
+  - name: annotation_paused
+    help: Whether the machinedeployment is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info
+  - name: spec_paused
+    help: Whether the machinedeployment is paused and any of its resources will not be processed by the controllers.
+    each:
       gauge:
         nilIsZero: true
         path:
           - spec
           - paused
       type: Gauge
-    name: spec_paused
+  - name: owner
+    help: Owner references.
+    each:
+      info:
+        labelsFromPath:
+          owner_is_controller:
+            - controller
+          owner_kind:
+            - kind
+          owner_name:
+            - name
+          owner_uid:
+            - uid
+        path:
+          - metadata
+          - ownerReferences
+      type: Info

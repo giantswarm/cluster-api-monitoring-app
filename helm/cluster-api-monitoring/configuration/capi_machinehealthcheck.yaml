@@ -1,34 +1,92 @@
 labelsFromPath:
-  name: [metadata, name]
-  namespace: [metadata, namespace]
-  cluster_name: [spec, clusterName]
+  cluster_name:
+    - spec
+    - clusterName
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
 metrics:
   - name: status_current_healthy
+    help: Current number of healthy machines.
     each:
-      type: Gauge
       gauge:
         path:
           - status
           - currentHealthy
-  - name: status_expected_machines
-    each:
       type: Gauge
+  - name: status_expected_machines
+    help: Total number of pods counted by this machinehealthcheck.
+    each:
       gauge:
         path:
           - status
           - expectedMachines
-  - name: status_remediations_allowed
-    each:
       type: Gauge
+  - name: status_remediations_allowed
+    help: Number of machine remediations that are currently allowed.
+    each:
       gauge:
         path:
           - status
           - remediationsAllowed
-  - each:
+      type: Gauge
+  - name: created
+    help: Unix creation timestamp.
+    each:
       gauge:
         path:
           - metadata
           - creationTimestamp
       type: Gauge
-    name: created
-    help: Unix creation timestamp.
+  - name: annotation_paused
+    help: Whether the machinehealthcheck is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info
+  - name: status_condition
+    help: The condition of a machinehealthcheck.
+    each:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+      type: StateSet
+  - name: owner
+    help: Owner references.
+    each:
+      info:
+        labelsFromPath:
+          owner_is_controller:
+            - controller
+          owner_kind:
+            - kind
+          owner_name:
+            - name
+          owner_uid:
+            - uid
+        path:
+          - metadata
+          - ownerReferences
+      type: Info
