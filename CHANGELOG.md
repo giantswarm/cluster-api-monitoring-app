@@ -7,7 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Changed
+### Add
+
+- initial support for Cluster API `MachinePools` add the following metrics:
+  - `capi_machinepool_annotation_paused`
+  - `capi_machinepool_created`
+  - `capi_machinepool_info`
+  - `capi_machinepool_owner`
+  - `capi_machinepool_spec_replicas`
+  - `capi_machinepool_status_condition`
+  - `capi_machinepool_status_phase`
+  - `capi_machinepool_status_replicas`
+  - `capi_machinepool_status_replicas_available`
+  - `capi_machinepool_status_replicas_ready`
+  - `capi_machinepool_status_replicas_unavailable`
+
+### Change
 
 - Moved from `ServiceMonitor` to `PodMonitor` as there the service itself isn't used
 - Remove `plural` from configuration as not needed anymore for `kube-state-metrics` to run
