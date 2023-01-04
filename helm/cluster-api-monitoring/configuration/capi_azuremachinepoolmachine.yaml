@@ -1,0 +1,114 @@
+labelsFromPath:
+  cluster_name:
+    - metadata
+    - labels
+    - cluster.x-k8s.io/cluster-name
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
+metrics:
+  - name: annotation_paused
+    help: Whether the azuremachinepoolmachine is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info
+  - name: status_conditions
+    help: The conditions of an azuremachinepoolmachine.
+    each:
+      type: StateSet
+      stateSet:
+        path:
+          - status
+          - conditions
+        list:
+          - "True"
+          - "False"
+          - "Unknown"
+        valueFrom:
+          - status
+        labelName: status
+        labelsFromPath:
+          type: [type]
+  - name: status_ready
+    help: Information if the provider resource is ready.
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - ready
+  - name: status_latest_model_applied
+    help: Information if the desired VMSS model is applied.
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - latestModelApplied
+  - name: status_image_info
+    help: Information about azuremachinepoolmachine image.
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          offer:
+            - marketplace
+            - offer
+          publisher:
+            - marketplace
+            - publisher
+          sku:
+            - marketplace
+            - sku
+          version:
+            - marketplace
+            - version
+        path:
+          - status
+          - image
+  - name: status_version
+    help: Version information about azuremachinepoolmachine.
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          provisioning_state:
+            - status
+            - version
+  - name: created
+    help: Unix creation timestamp.
+    each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+  - name: owner
+    help: Owner references.
+    each:
+      info:
+        labelsFromPath:
+          owner_is_controller:
+            - controller
+          owner_kind:
+            - kind
+          owner_name:
+            - name
+          owner_uid:
+            - uid
+        path:
+          - metadata
+          - ownerReferences
+      type: Info

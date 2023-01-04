@@ -10,6 +10,9 @@ spec:
     - {{.Release.Namespace}}
   podMetricsEndpoints:
   - targetPort: 8080
+    relabelings:
+    - action: labeldrop
+      regex: 'uid'
   selector:
     matchLabels:
       {{- include "labels.selector" . | nindent 6 }}
