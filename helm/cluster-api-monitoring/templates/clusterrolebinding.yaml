@@ -1,14 +1,14 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: {{include "name" .}}
+  name: {{ include "name" . }}
   namespace: {{.Release.Namespace}}
   labels: {{- include "labels.common" . | nindent 4}}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: {{include "name" .}}
+  name: {{ include "name" . }}
 subjects:
   - kind: ServiceAccount
-    name: {{include "name" .}}
+    name: {{ include "name" . }}
     namespace: {{.Release.Namespace}}
