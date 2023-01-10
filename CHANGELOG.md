@@ -45,6 +45,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `capi_azuremachinepoolmachine_status_ready`
   - `capi_azuremachinepoolmachine_status_version`
 
+### Fixed
+
+- Fix PSP seccomp profile for CAPA and CAPG.
+
 ## [1.2.0] - 2023-01-09
 
 ### Add
