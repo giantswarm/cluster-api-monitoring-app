@@ -5,6 +5,9 @@ metadata:
   name: {{ include "name" . }}
   labels:
     {{- include "labels.common" . | nindent 4 }}
+  annotations:
+    ## Added to allow runtime-default seccomp profile
+    seccomp.security.alpha.kubernetes.io/allowedProfileNames: '*'
 spec:
   privileged: false
   fsGroup:
