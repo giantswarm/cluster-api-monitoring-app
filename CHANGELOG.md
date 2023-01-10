@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.3.0] - 2023-01-10
+
 ### Change
 
 - Drop `uid` label to reduce cardinality
@@ -44,6 +46,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `capi_azuremachinepoolmachine_status_latest_model_applied`
   - `capi_azuremachinepoolmachine_status_ready`
   - `capi_azuremachinepoolmachine_status_version`
+
+### Fixed
+
+- Fix PSP seccomp profile for CAPA and CAPG.
 
 ## [1.2.0] - 2023-01-09
 
@@ -129,7 +135,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `capi_cluster_status_conditions`
   - `capi_cluster_status_phase`
 
-[Unreleased]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.2.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.3.0...HEAD
+[1.3.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.2.0...v1.3.0
 [1.2.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.1.0...v1.2.0
 [1.1.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/giantswarm/cluster-api-monitoring-app/releases/tag/v1.0.0
