@@ -7,6 +7,44 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Change
+
+- Drop `uid` label to reduce cardinality
+
+### Add
+
+- initial support for Cluster API Provider Azure CRs:
+  - `capi_azurecluster_annotation_paused`
+  - `capi_azurecluster_created`
+  - `capi_azurecluster_info`
+  - `capi_azurecluster_owner`
+  - `capi_azurecluster_status_conditions`
+  - `capi_azurecluster_status_ready`
+  - `capi_azuremachine_annotation_paused`
+  - `capi_azuremachine_created`
+  - `capi_azuremachine_info`
+  - `capi_azuremachine_owner`
+  - `capi_azuremachine_status_addresses`
+  - `capi_azuremachine_status_conditions`
+  - `capi_azuremachine_status_ready`
+  - `capi_azuremachinepool_annotation_paused`
+  - `capi_azuremachinepool_created`
+  - `capi_azuremachinepool_info`
+  - `capi_azuremachinepool_owner`
+  - `capi_azuremachinepool_status_addresses`
+  - `capi_azuremachinepool_status_conditions`
+  - `capi_azuremachinepool_status_image_info`
+  - `capi_azuremachinepool_status_ready`
+  - `capi_azuremachinepool_status_replicas`
+  - `capi_azuremachinepoolmachine_annotation_paused`
+  - `capi_azuremachinepoolmachine_created`
+  - `capi_azuremachinepoolmachine_owner`
+  - `capi_azuremachinepoolmachine_status_conditions`
+  - `capi_azuremachinepoolmachine_status_image_info`
+  - `capi_azuremachinepoolmachine_status_latest_model_applied`
+  - `capi_azuremachinepoolmachine_status_ready`
+  - `capi_azuremachinepoolmachine_status_version`
+
 ## [1.2.0] - 2023-01-09
 
 ### Add

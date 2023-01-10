@@ -1,0 +1,97 @@
+labelsFromPath:
+  cluster_name:
+    - metadata
+    - ownerReferences
+    - "[kind=Cluster]"
+    - name
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
+metrics:
+  - name: annotation_paused
+    help: Whether the azurecluster is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info
+  - name: status_conditions
+    help: The conditions of an azurecluster.
+    each:
+      type: StateSet
+      stateSet:
+        path:
+          - status
+          - conditions
+        list:
+          - "True"
+          - "False"
+          - "Unknown"
+        valueFrom:
+          - status
+        labelName: status
+        labelsFromPath:
+          type: [type]
+  - name: info
+    help: Information about an azurecluster.
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          location:
+            - spec
+            - location
+          control_plane_endpoint_ip:
+            - spec
+            - controlPlaneEndpoint
+            - host
+          control_plane_endpoint_port:
+            - spec
+            - controlPlaneEndpoint
+            - port
+          resource_group:
+            - spec
+            - resourceGroup
+  - name: status_ready
+    help: Information if the provider resource is ready.
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - ready
+  - name: created
+    help: Unix creation timestamp.
+    each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+  - name: owner
+    help: Owner references.
+    each:
+      info:
+        labelsFromPath:
+          owner_is_controller:
+            - controller
+          owner_kind:
+            - kind
+          owner_name:
+            - name
+          owner_uid:
+            - uid
+        path:
+          - metadata
+          - ownerReferences
+      type: Info

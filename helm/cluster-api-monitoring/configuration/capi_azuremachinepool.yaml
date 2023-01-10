@@ -1,0 +1,155 @@
+labelsFromPath:
+  cluster_name:
+    - metadata
+    - labels
+    - cluster.x-k8s.io/cluster-name
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
+metrics:
+  - name: annotation_paused
+    help: Whether the azuremachine is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info
+  - name: status_conditions
+    help: The conditions of an azuremachine.
+    each:
+      type: StateSet
+      stateSet:
+        path:
+          - status
+          - conditions
+        list:
+          - "True"
+          - "False"
+          - "Unknown"
+        valueFrom:
+          - status
+        labelName: status
+        labelsFromPath:
+          type: [type]
+  - name: info
+    help: Information about an azuremachinepool.
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          location:
+            - spec
+            - location
+          subnet:
+            - spec
+            - template
+            - spec
+            - subnetName
+          vm_size:
+            - spec
+            - template
+            - spec
+            - vmSize
+          os_disk_size:
+            - spec
+            - template
+            - spec
+            - osDisk
+            - diskSizeGB
+  - name: status_addresses
+    help: Information about azuremachine network addresses.
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          internal_dns:
+            - "[type=InternalDNS]"
+            - address
+          internal_ip:
+            - "[type=InternalIP]"
+            - address
+        path:
+          - status
+          - addresses
+  - name: status_ready
+    help: Information if the provider resource is ready.
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - ready
+  - name: status_replicas
+    help: The number of replicas per azuremachinepool.
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - replicas
+        nilIsZero: true
+  - name: status_image_info
+    help: Information about azuremachinepool image.
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          offer:
+            - marketplace
+            - offer
+          publisher:
+            - marketplace
+            - publisher
+          sku:
+            - marketplace
+            - sku
+          version:
+            - marketplace
+            - version
+        path:
+          - status
+          - image
+  - name: status_image_info
+    help: Information about azuremachinepool provisioning state.
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          provisioning_state:
+            - status
+            - provisioningState
+  - name: created
+    help: Unix creation timestamp.
+    each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+  - name: owner
+    help: Owner references.
+    each:
+      info:
+        labelsFromPath:
+          owner_is_controller:
+            - controller
+          owner_kind:
+            - kind
+          owner_name:
+            - name
+          owner_uid:
+            - uid
+        path:
+          - metadata
+          - ownerReferences
+      type: Info
