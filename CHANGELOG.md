@@ -76,6 +76,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Change
 
+
+- `cluster_name` label from `capi_cluster` metrics got removed as the value is a duplicate of the `name` label
+- Align all `capi` metrics with upstream
+  - `capi_machinedeployment_status_unavailable_replicas` changed to `capi_machinedeployment_status_replicas_unavailable`
+  - `*_status_conditions` changed to `*_status_condition` (plural to singular)
 - Moved from `ServiceMonitor` to `PodMonitor` as there the service itself isn't used
 - Remove `plural` from configuration as not needed anymore for `kube-state-metrics` to run
 - Update to `kube-state-metrics` version `v2.7.0`

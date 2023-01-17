@@ -6,9 +6,9 @@ project:
   commit: "[[ .SHA ]]"
 
 image:
-  registry: docker.io
+  registry: quay.io
   name: giantswarm/kube-state-metrics
-  tag: v2.7.0
+  tag: v2.7.0-b7a7070
   pullPolicy: IfNotPresent
 
 securityContext:

@@ -1,26 +1,37 @@
 labelsFromPath:
-  name: [metadata, name]
-  namespace: [metadata, namespace]
-  uid: [metadata, uid]
-  cluster_name: [spec, clusterName]
+  cluster_name:
+    - spec
+    - clusterName
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
 metrics:
-  - each:
+  - name: created
+    help: Unix creation timestamp.
+    each:
       gauge:
         path:
           - metadata
           - creationTimestamp
       type: Gauge
-    name: created
-    help: Unix creation timestamp.
-  - each:
+  - name: status_available_replicas
+    help: The number of available replicas per machineset.
+    each:
       gauge:
         path:
           - status
           - availableReplicas
         nilIsZero: true
       type: Gauge
-    name: status_available_replicas
-  - each:
+  - name: status_condition
+    help: The condition of a machineset.
+    each:
       stateSet:
         labelName: status
         labelsFromPath:
@@ -36,8 +47,6 @@ metrics:
         valueFrom:
           - status
       type: StateSet
-    name: status_conditions
-    help: The current status conditions of a machineset.
   - each:
       gauge:
         path:
@@ -46,30 +55,55 @@ metrics:
         nilIsZero: true
       type: Gauge
     name: status_replicas
-  - each:
+  - name: status_fully_labeled_replicas
+    help: The number of fully labeled replicas per machineset.
+    each:
       gauge:
         path:
           - status
           - fullyLabeledReplicas
       type: Gauge
-    name: status_fully_labeled_replicas
-  - each:
+  - name: status_replicas
+    help: The number of replicas per machineset.
+    each:
+      gauge:
+        path:
+          - status
+          - replicas
+        nilIsZero: true
+      type: Gauge
+  - name: status_ready_replicas
+    help: The number of ready replicas per machineset.
+    each:
       gauge:
         path:
           - status
           - readyReplicas
         nilIsZero: true
       type: Gauge
-    name: status_ready_replicas
-  - each:
+  - name: spec_replicas
+    help: The number of desired machines for a machineset.
+    each:
       gauge:
         path:
           - spec
           - replicas
         nilIsZero: true
       type: Gauge
-    name: spec_replicas
-  - each:
+  - name: annotation_paused
+    help: Whether the machineset is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info
+  - name: owner
+    help: Owner references.
+    each:
       info:
         labelsFromPath:
           owner_is_controller:
@@ -84,4 +118,14 @@ metrics:
           - metadata
           - ownerReferences
       type: Info
-    name: owner
+  - name: info
+    help: Information about a machineset.
+    each:
+      info:
+        labelsFromPath:
+          version:
+            - spec
+            - template
+            - spec
+            - version
+      type: Info
