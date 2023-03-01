@@ -57,21 +57,19 @@ metrics:
             - spec
             - osDisk
             - diskSizeGB
-  - name: status_addresses
+  - name: addresses
     help: Information about azuremachine network addresses.
     each:
       type: Info
       info:
-        labelsFromPath:
-          internal_dns:
-            - "[type=InternalDNS]"
-            - address
-          internal_ip:
-            - "[type=InternalIP]"
-            - address
         path:
           - status
           - addresses
+        labelsFromPath:
+          type:
+            - type
+          address:
+            - address
   - name: status_ready
     help: Information if the provider resource is ready.
     each:

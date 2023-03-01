@@ -8,7 +8,7 @@ project:
 image:
   registry: quay.io
   name: giantswarm/kube-state-metrics
-  tag: v2.7.0-b7a7070
+  tag: v2.8.1
   pullPolicy: IfNotPresent
 
 securityContext:

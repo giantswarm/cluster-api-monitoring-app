@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Change
+
+- Bump `kube-state-metrics` to stable version `2.8.1`
+- Rename `capi_azuremachine_status_addresses` to `capi_azuremachine_addresses` to align with `capi_machine_addresses`
+- Rename `capi_azuremachinepool_status_addresses` to `capi_azuremachinepool_addresses` to align with `capi_machine_addresses`
+- Align label generation for `capi_azuremachine_addresses` and `capi_azuremachinepool_addresses` with `capi_machine_addresses`
+
 ## [1.3.1] - 2023-01-17
 
 ## [1.3.0] - 2023-01-10
