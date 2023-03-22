@@ -73,7 +73,7 @@ workflows:
               only: /^v.*/
 
       - architect/push-to-app-collection:
-          name: capa-vsphere-collection
+          name: vsphere-app-collection
           context: "architect"
           app_name: "cluster-api-monitoring"
           app_collection_repo: "vsphere-app-collection"
