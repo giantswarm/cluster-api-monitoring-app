@@ -17,20 +17,6 @@ workflows:
               only: /^v.*/
 
       - architect/push-to-app-collection:
-          name: openstack-app-collection
-          context: "architect"
-          app_name: "cluster-api-monitoring"
-          app_collection_repo: "openstack-app-collection"
-          requires:
-            - push-to-control-plane-app-catalog
-          # Trigger job on git tag.
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
-
-      - architect/push-to-app-collection:
           name: gcp-app-collection
           context: "architect"
           app_name: "cluster-api-monitoring"
