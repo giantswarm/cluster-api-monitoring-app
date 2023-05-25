@@ -1,0 +1,65 @@
+labelsFromPath:
+  cluster_name:
+    - metadata
+    - labels
+    - cluster.x-k8s.io/cluster-name
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
+metrics:
+  - name: status_conditions
+    help: The conditions of an vspherevm.
+    each:
+      type: StateSet
+      stateSet:
+        path:
+          - status
+          - conditions
+        list:
+          - "True"
+          - "False"
+          - "Unknown"
+        valueFrom:
+          - status
+        labelName: status
+        labelsFromPath:
+          type: [type]
+  - name: status_ready
+    help: Information if the provider resource is ready.
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - ready
+  - name: created
+    help: Unix creation timestamp.
+    each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+  - name: owner
+    help: Owner references.
+    each:
+      info:
+        labelsFromPath:
+          owner_is_controller:
+            - controller
+          owner_kind:
+            - kind
+          owner_name:
+            - name
+          owner_uid:
+            - uid
+        path:
+          - metadata
+          - ownerReferences
+      type: Info
