@@ -7,6 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Add
+
+- initial support for Cluster API Provider VSphere CRs:
+  - `capi_vspherecluster_annotation_paused`
+  - `capi_vspherecluster_created`
+  - `capi_vspherecluster_info`
+  - `capi_vspherecluster_status_conditions`
+  - `capi_vspherecluster_status_ready`
+  - `capi_vspheremachine_addresses`
+  - `capi_vspheremachine_annotation_paused`
+  - `capi_vspheremachine_created`
+  - `capi_vspheremachine_info`
+  - `capi_vspheremachine_network_info`
+  - `capi_vspheremachine_owner`
+  - `capi_vspheremachine_status_conditions`
+  - `capi_vspheremachine_status_ready`
+  - `capi_vspherevm_created`
+  - `capi_vspherevm_owner`
+  - `capi_vspherevm_status_conditions`
+  - `capi_vspherevm_status_ready`
+
 ### Removed
 
 - Stop pushing to `openstack-app-collection`.
