@@ -25,7 +25,7 @@ metrics:
           paused_value: []
       type: Info
   - name: status_conditions
-    help: The conditions of an vcdmachine.
+    help: The conditions of a vcdmachine.
     each:
       type: StateSet
       stateSet:
