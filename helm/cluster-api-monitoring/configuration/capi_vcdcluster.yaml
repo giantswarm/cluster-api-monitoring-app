@@ -4,15 +4,21 @@ labelsFromPath:
   cluster_name: [metadata, name]
 metrics:
   - name: info
-    help: Information about a vspherecluster.
+    help: Information about a vcdcluster.
     each:
       type: Info
       info:
         labelsFromPath:
-          server: [spec, server]
-          vcenter_version: [status, vCenterVersion]
+          site: [spec, site]
+          rde_id: [spec, rdeId]
+          control_plane_endpoint_ip: [spec, controlPlaneEndpoint, host]
+          control_plane_endpoint_port: [spec, controlPlaneEndpoint, port]
+          org: [spec, org]
+          ovdc: [spec, ovdc]
+          ovdc_network: [spec, ovdcNetwork]
+          vip_subnet: [spec, loadBalancerConfigSpec, vipSubnet]
   - name: annotation_paused
-    help: Whether the vspherecluster is paused and any of its resources will not be processed by the controllers.
+    help: Whether the vcdcluster is paused and any of its resources will not be processed by the controllers.
     each:
       info:
         path:
@@ -23,7 +29,7 @@ metrics:
           paused_value: []
       type: Info
   - name: status_conditions
-    help: The conditions of a vspherecluster.
+    help: The conditions of an vcdcluster.
     each:
       type: StateSet
       stateSet:
