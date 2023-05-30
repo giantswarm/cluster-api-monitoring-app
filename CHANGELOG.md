@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Add
+
+- initial support for Cluster API Provider Cloud Director CRs:
+  - `capi_vcdcluster_annotation_paused`
+  - `capi_vcdcluster_created`
+  - `capi_vcdcluster_info`
+  - `capi_vcdcluster_status_conditions`
+  - `capi_vcdcluster_status_ready`
+  - `capi_vcdmachine_addresses`
+  - `capi_vcdmachine_annotation_paused`
+  - `capi_vcdmachine_created`
+  - `capi_vcdmachine_info`
+  - `capi_vcdmachine_owner`
+  - `capi_vcdmachine_status_conditions`
+  - `capi_vcdmachine_status_ready`
+
 ## [1.5.0] - 2023-05-30
 
 ### Add

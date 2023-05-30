@@ -14,7 +14,7 @@ labelsFromPath:
     - uid
 metrics:
   - name: annotation_paused
-    help: Whether the vspheremachine is paused and any of its resources will not be processed by the controllers.
+    help: Whether the vcdmachine is paused and any of its resources will not be processed by the controllers.
     each:
       info:
         path:
@@ -25,7 +25,7 @@ metrics:
           paused_value: []
       type: Info
   - name: status_conditions
-    help: The conditions of a vspheremachine.
+    help: The conditions of a vcdmachine.
     each:
       type: StateSet
       stateSet:
@@ -42,45 +42,31 @@ metrics:
         labelsFromPath:
           type: [type]
   - name: info
-    help: Information about a vspheremachine.
+    help: Information about a vcdmachine.
     each:
       type: Info
       info:
         labelsFromPath:
-          template:
+          bootstrapped:
             - spec
-            - template
-          datastore:
+            - bootstrapped
+          catalog:
             - spec
-            - datastore
+            - catalog
           resource_pool:
             - spec
             - resourcePool
-          num_cpus:
+          sizing_policy:
             - spec
-            - numCPUs
+            - sizingPolicy
           os_disk_size:
             - spec
-            - diskGiB
-          os_memory_size:
+            - diskSize
+          template:
             - spec
-            - memoryMiB
-  - name: network_info
-    help: Network information about a vspheremachine.
-    each:
-      type: Info
-      info:
-        path:
-          - spec
-          - network
-          - devices
-        labelsFromPath:
-          dhcp4:
-            - dhcp4
-          name:
-            - networkName
+            - template
   - name: addresses
-    help: Information about vspheremachine network addresses.
+    help: Information about vcdmachine network addresses.
     each:
       type: Info
       info:
