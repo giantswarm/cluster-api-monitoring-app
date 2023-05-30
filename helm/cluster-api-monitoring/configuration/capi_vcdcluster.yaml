@@ -29,7 +29,7 @@ metrics:
           paused_value: []
       type: Info
   - name: status_conditions
-    help: The conditions of an vcdcluster.
+    help: The conditions of a vcdcluster.
     each:
       type: StateSet
       stateSet:
