@@ -1,0 +1,56 @@
+labelsFromPath:
+  name: [metadata, name]
+  namespace: [metadata, namespace]
+  cluster_name: [metadata, name]
+metrics:
+  - name: info
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          server: [spec, server]
+          vCenterVersion: [status, vCenterVersion]
+  - name: annotation_paused
+    help: Whether the vspherecluster is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info
+  - name: status_conditions
+    help: The conditions of an vspherecluster.
+    each:
+      type: StateSet
+      stateSet:
+        path:
+          - status
+          - conditions
+        list:
+          - "True"
+          - "False"
+          - "Unknown"
+        valueFrom:
+          - status
+        labelName: status
+        labelsFromPath:
+          type: [type]
+  - each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+    name: created
+    help: Unix creation timestamp.
+  - name: status_ready
+    help: Information if the provider resource is ready.
+    each:
+      type: Gauge
+      gauge:
+        path:
+          - status
+          - ready
