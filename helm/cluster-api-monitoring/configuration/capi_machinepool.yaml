@@ -12,24 +12,6 @@ labelsFromPath:
     - metadata
     - uid
 metrics:
-  - name: status_condition
-    help: The condition of a machinepool.
-    each:
-      stateSet:
-        labelName: status
-        labelsFromPath:
-          type:
-            - type
-        list:
-          - "True"
-          - "False"
-          - Unknown
-        path:
-          - status
-          - conditions
-        valueFrom:
-          - status
-      type: StateSet
   - name: spec_replicas
     help: The number of desired machines for a machinepool.
     each:
@@ -149,6 +131,39 @@ metrics:
         labelsFromPath:
           paused_value: []
       type: Info
+  - name: status_condition
+    help: The condition of a machinepool.
+    each:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+      type: StateSet
+  - name: status_condition_last_transition_time
+    help: The condition last transition time of a machinepool.
+    each:
+      gauge:
+        labelsFromPath:
+          type:
+            - type
+          status:
+            - status
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - lastTransitionTime
+      type: Gauge
   - name: owner
     help: Owner references.
     each:
