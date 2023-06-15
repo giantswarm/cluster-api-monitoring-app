@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.7.0] - 2023-06-15
+
 ### Add
 
 - New metrics:
@@ -219,7 +221,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `capi_cluster_status_conditions`
   - `capi_cluster_status_phase`
 
-[Unreleased]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.6.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.7.0...HEAD
+[1.7.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.6.0...v1.7.0
 [1.6.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.5.0...v1.6.0
 [1.5.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.4.0...v1.5.0
 [1.4.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.3.1...v1.4.0
