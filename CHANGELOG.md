@@ -7,6 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Add
+
+- New metrics:
+  - `capi_cluster_status_condition_last_transition_time`
+  - `capi_kubeadmcontrolplane_status_condition_last_transition_time`
+  - `capi_machinedeployment_status_condition_last_transition_time`
+  - `capi_machinehealthcheck_status_condition_last_transition_time`
+  - `capi_machinehealthcheck_info`
+  - `capi_machinepool_status_condition_last_transition_time`
+  - `capi_machineset_status_condition_last_transition_time`
+  - `capi_machine_status_condition_last_transition_time`
+- New labels for `capi_machineset_info` metric
+  - `bootstrap_reference_kind`
+  - `bootstrap_reference_name`
+  - `infrastructure_reference_kind`
+  - `infrastructure_reference_name`
+- New labels for `capi_machine_info` metric
+  - `bootstrap_reference_kind`
+  - `bootstrap_reference_name`
+  - `infrastructure_reference_kind`
+  - `infrastructure_reference_name`
+  - `control_plane_name` if the machine is a control-plane machine
+  
 ## [1.6.0] - 2023-05-31
 
 ### Add

@@ -14,32 +14,15 @@ labelsFromPath:
     - metadata
     - uid
 metrics:
-  - name: created
-    help: Unix creation timestamp.
+  - name: info
+    help: Information about a kubeadmcontrolplane.
     each:
-      gauge:
-        path:
-          - metadata
-          - creationTimestamp
-      type: Gauge
-  - name: status_condition
-    help: The condition of a kubeadmcontrolplane.
-    each:
-      stateSet:
-        labelName: status
+      info:
         labelsFromPath:
-          type:
-            - type
-        list:
-          - "True"
-          - "False"
-          - Unknown
-        path:
-          - status
-          - conditions
-        valueFrom:
-          - status
-      type: StateSet
+          version:
+            - spec
+            - version
+      type: Info
   - name: status_replicas
     help: The number of replicas per kubeadmcontrolplane.
     each:
@@ -94,6 +77,58 @@ metrics:
           - rollingUpdate
           - maxSurge
       type: Gauge
+  - name: created
+    help: Unix creation timestamp.
+    each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+  - name: annotation_paused
+    help: Whether the kubeadmcontrolplane is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info
+  - name: status_condition
+    help: The condition of a kubeadmcontrolplane.
+    each:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+      type: StateSet
+  - name: status_condition_last_transition_time
+    help: The condition last transition time of a kubeadmcontrolplane.
+    each:
+      gauge:
+        labelsFromPath:
+          type:
+            - type
+          status:
+            - status
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - lastTransitionTime
+      type: Gauge
   - name: owner
     help: Owner references.
     each:
@@ -110,24 +145,4 @@ metrics:
         path:
           - metadata
           - ownerReferences
-      type: Info
-  - name: info
-    help: Information about a kubeadmcontrolplane.
-    each:
-      info:
-        labelsFromPath:
-          version:
-            - spec
-            - version
-      type: Info
-  - name: annotation_paused
-    help: Whether the kubeadmcontrolplane is paused and any of its resources will not be processed by the controllers.
-    each:
-      info:
-        path:
-          - metadata
-          - annotations
-          - cluster.x-k8s.io/paused
-        labelsFromPath:
-          paused_value: []
       type: Info

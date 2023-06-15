@@ -18,47 +18,69 @@ metrics:
       info:
         labelsFromPath:
           container_runtime_version:
-          - status
-          - nodeInfo
-          - containerRuntimeVersion
+            - status
+            - nodeInfo
+            - containerRuntimeVersion
           failure_domain:
-          - spec
-          - failureDomain
+            - spec
+            - failureDomain
           kernel_version:
-          - status
-          - nodeInfo
-          - kernelVersion
+            - status
+            - nodeInfo
+            - kernelVersion
           kubelet_version:
-          - status
-          - nodeInfo
-          - kubeletVersion
+            - status
+            - nodeInfo
+            - kubeletVersion
           kube_proxy_version:
-          - status
-          - nodeInfo
-          - kubeProxyVersion
+            - status
+            - nodeInfo
+            - kubeProxyVersion
           os_image:
-          - status
-          - nodeInfo
-          - osImage
+            - status
+            - nodeInfo
+            - osImage
           provider_id:
-          - spec
-          - providerID
+            - spec
+            - providerID
           version:
-          - spec
-          - version
+            - spec
+            - version
+          bootstrap_reference_kind:
+            - spec
+            - bootstrap
+            - configRef
+            - kind
+          bootstrap_reference_name:
+            - spec
+            - bootstrap
+            - configRef
+            - name
+          infrastructure_reference_kind:
+            - spec
+            - infrastructureRef
+            - kind
+          infrastructure_reference_name:
+            - spec
+            - infrastructureRef
+            - name
+          control_plane_name:
+            - metadata
+            - labels
+            - cluster.x-k8s.io/control-plane-name
       type: Info
   - name: addresses
     help: Address information about a machine.
     each:
       info:
         path:
-        - status
-        - addresses
+          - status
+          - addresses
         labelsFromPath:
           type:
-          - type
+            - type
           address:
-          - address
+            - address
       type: Info
   - name: status_noderef
     help: Information about the node reference of a machine.
@@ -92,24 +114,6 @@ metrics:
           - status
           - phase
       type: StateSet
-  - name: status_condition
-    help: The condition of a machine.
-    each:
-      stateSet:
-        labelName: status
-        labelsFromPath:
-          type:
-            - type
-        list:
-          - "True"
-          - "False"
-          - Unknown
-        path:
-          - status
-          - conditions
-        valueFrom:
-          - status
-      type: StateSet
   - name: created
     help: Unix creation timestamp.
     each:
@@ -129,6 +133,39 @@ metrics:
         labelsFromPath:
           paused_value: []
       type: Info
+  - name: status_condition
+    help: The condition of a machine.
+    each:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+      type: StateSet
+  - name: status_condition_last_transition_time
+    help: The condition last transition time of a machine.
+    each:
+      gauge:
+        labelsFromPath:
+          type:
+            - type
+          status:
+            - status
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - lastTransitionTime
+      type: Gauge
   - name: owner
     help: Owner references.
     each:

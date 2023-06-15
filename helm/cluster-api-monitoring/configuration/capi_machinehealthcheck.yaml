@@ -12,6 +12,16 @@ labelsFromPath:
     - metadata
     - uid
 metrics:
+  - name: info
+    help: Information about a machinehealthcheck.
+    each:
+      info:
+        # TODO: added metadata.name even it's already defined above as the metric doesn't work with empty labelsFromPath.
+        labelsFromPath:
+          name:
+            - metadata
+            - name
+      type: Info
   - name: status_current_healthy
     help: Current number of healthy machines.
     each:
@@ -73,6 +83,21 @@ metrics:
         valueFrom:
           - status
       type: StateSet
+  - name: status_condition_last_transition_time
+    help: The condition last transition time of a machinehealthcheck.
+    each:
+      gauge:
+        labelsFromPath:
+          type:
+            - type
+          status:
+            - status
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - lastTransitionTime
+      type: Gauge
   - name: owner
     help: Owner references.
     each:

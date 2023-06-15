@@ -9,24 +9,6 @@ labelsFromPath:
     - metadata
     - uid
 metrics:
-  - name: status_condition
-    help: The condition of a cluster.
-    each:
-      stateSet:
-        labelName: status
-        labelsFromPath:
-          type:
-            - type
-        list:
-          - "True"
-          - "False"
-          - Unknown
-        path:
-          - status
-          - conditions
-        valueFrom:
-          - status
-      type: StateSet
   - name: info
     help: Information about a cluster.
     each:
@@ -65,6 +47,15 @@ metrics:
             - infrastructureRef
             - name
       type: Info
+  - name: spec_paused
+    help: Whether the cluster is paused and any of its resources will not be processed by the controllers.
+    each:
+      gauge:
+        nilIsZero: true
+        path:
+          - spec
+          - paused
+      type: Gauge
   - name: status_phase
     help: The clusters current phase.
     each:
@@ -89,15 +80,6 @@ metrics:
           - metadata
           - creationTimestamp
       type: Gauge
-  - name: spec_paused
-    help: Whether the cluster is paused and any of its resources will not be processed by the controllers.
-    each:
-      gauge:
-        nilIsZero: true
-        path:
-          - spec
-          - paused
-      type: Gauge
   - name: annotation_paused
     help: Whether the cluster is paused and any of its resources will not be processed by the controllers.
     each:
@@ -109,3 +91,36 @@ metrics:
         labelsFromPath:
           paused_value: []
       type: Info
+  - name: status_condition
+    help: The condition of a cluster.
+    each:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+      type: StateSet
+  - name: status_condition_last_transition_time
+    help: The condition last transition time of a cluster.
+    each:
+      gauge:
+        labelsFromPath:
+          type:
+            - type
+          status:
+            - status
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - lastTransitionTime
+      type: Gauge
