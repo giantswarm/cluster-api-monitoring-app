@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+
+- Cleanup comments from `README.md` as all mentioned changes/PRs got merged and released in upstream `KSM`. 
+
 ## [1.7.1] - 2023-06-15
 
 ### Add

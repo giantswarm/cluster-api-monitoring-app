@@ -19,19 +19,6 @@ To not harm the existing `KSM` installation in `kube-system` and make fast progr
 
 Everyone which needs information from `CustomResource` objects exposed as metric.
 
-## Container image build
-
-> this is only needed as long as PR #1777 on `kube-state-metrics` is open
-
-- [open upstream PR](https://github.com/kubernetes/kube-state-metrics/pull/1777)
-- [open upstream Issue](https://github.com/kubernetes/kube-state-metrics/issues/1755)
-- container image build based on PR #1777 / commit `e6eda699`
-  - image can be build by
-    1. checkout commit
-    1. run `make container`
-    1. run `docker tag gcr.io/k8s-staging-kube-state-metrics/kube-state-metrics-amd64:v2.5.0 quay.io/giantswarm/kube-state-metrics:v2.5.0-additional-metric-types-<commitID>`
-    1. run `docker push quay.io/giantswarm/kube-state-metrics:v2.5.0-additional-metric-types-<commitID>`
-
 ## Installing
 
 There are several ways to install this app onto a workload cluster.
@@ -76,16 +63,4 @@ monitoredResources:
       group: source.toolkit.fluxcd.io
       kind: GitRepository
       version: v1beta2
-```
-
-### no op (no operation) mode
-
-> As soon as [Allow monitoring of CRs only #1778](https://github.com/kubernetes/kube-state-metrics/issues/1778) is open we have to acknowledge the current no op behavior.
-
-Without any defined `monitoredResources`, `cluster-api-monitoring` is able to run in a `no op` mode. This means the `--resources` argument will be an empty string and therefore `KSM` tries to to scrape all known resources (e.g. `v1.Namespaces`, `v1.Pods`, ...). As `cluster-api-monitoring` is primary designed to monitor `CRs` only and all required permissions are defined in the `ClusterRole`, in the `noop` mode, the `ClusteRole` is empty. Therefore `KSM` will print a bunch of permission errors, e.g. 
-
-```
-W0703 18:55:58.809274       1 reflector.go:324] pkg/mod/k8s.io/client-go@v0.24.1/tools/cache/reflector.go:167: failed to list *v1.Namespace: namespaces is forbidden: User "system:serviceaccount:giantswarm:cluster-api-monitoring" cannot list resource "namespaces" in API group "" at the cluster scope
-E0703 18:55:58.809332       1 reflector.go:138] pkg/mod/k8s.io/client-go@v0.24.1/tools/cache/reflector.go:167: Failed to watch *v1.Namespace: failed to list *v1.Namespace: namespaces is forbidden: User "system:serviceaccount:giantswarm:cluster-api-monitoring" cannot list resource "namespaces" in API group "" at the cluster scope
-W0703 18:55:58.809415       1 reflector.go:324] pkg/mod/k8s.io/client-go@v0.24.1/tools/cache/reflector.go:167: failed to list *v1.ConfigMap: configmaps is forbidden: User "system:serviceaccount:giantswarm:cluster-api-monitoring" cannot list resource "configmaps" in API group "" at the cluster scope                                      
 ```
