@@ -1,6 +1,9 @@
 name: cluster-api-monitoring
 serviceType: managed
 
+ciliumNetworkPolicy:
+  enabled: false
+
 project:
   branch: "[[ .Branch ]]"
   commit: "[[ .SHA ]]"
