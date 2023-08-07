@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add cilium network policies support (enabled with `ciliumNetworkPolicy.enabled=true`).
+
 ### Removed
 
 - Cleanup comments from `README.md` as all mentioned changes/PRs got merged and released in upstream `KSM`. 
