@@ -15,6 +15,10 @@ spec:
       labels: {{- include "labels.selector" . | nindent 8}}
     spec:
       serviceAccountName: {{ include "name" . }}
+      {{- with .Values.podSecurityContext }}
+      securityContext:
+        {{- . | toYaml | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{.Chart.Name}}
           image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
@@ -33,7 +37,7 @@ spec:
             initialDelaySeconds: 5
             timeoutSeconds: 5
           resources: {{- toYaml .Values.resources | nindent 12}}
-          securityContext: {{- toYaml .Values.securityContext | nindent 12}}
+          securityContext: {{- toYaml .Values.containerSecurityContext | nindent 12}}
           volumeMounts:
             - mountPath: "/data"
               name: config

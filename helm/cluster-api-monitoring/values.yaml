@@ -4,6 +4,10 @@ serviceType: managed
 ciliumNetworkPolicy:
   enabled: false
 
+global:
+  podSecurityStandards:
+    enforced: false
+
 project:
   branch: "[[ .Branch ]]"
   commit: "[[ .SHA ]]"
@@ -14,7 +18,12 @@ image:
   tag: v2.8.1
   pullPolicy: IfNotPresent
 
-securityContext:
+podSecurityContext:
+  runAsNonRoot: true
+  seccompProfile:
+    type: RuntimeDefault
+
+containerSecurityContext:
   allowPrivilegeEscalation: false
   capabilities:
     drop:
