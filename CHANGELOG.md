@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.8.1] - 2024-01-18
+
 ### Added
 
 - PSS compliance
@@ -241,7 +243,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `capi_cluster_status_conditions`
   - `capi_cluster_status_phase`
 
-[Unreleased]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.8.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.8.1...HEAD
+[1.8.1]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.8.0...v1.8.1
 [1.8.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.7.1...v1.8.0
 [1.7.1]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.7.0...v1.7.1
 [1.7.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.6.0...v1.7.0
