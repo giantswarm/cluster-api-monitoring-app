@@ -11,4 +11,10 @@ spec:
   egress:
     - toEntities:
         - kube-apiserver
+  ingress:
+    - fromEntities:
+      - cluster
+      toPorts:
+      - ports:
+          - port: "8080"
 {{- end }}

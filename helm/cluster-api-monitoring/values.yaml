@@ -2,7 +2,7 @@ name: cluster-api-monitoring
 serviceType: managed
 
 ciliumNetworkPolicy:
-  enabled: false
+  enabled: true
 
 global:
   podSecurityStandards:

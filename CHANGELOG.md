@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Enable CiliumNetworkPolicy by default and add metrics port.
+
 ## [1.8.1] - 2024-01-18
 
 ### Added
