@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.9.0] - 2024-01-25
+
 ### Changed
 
 - Enable CiliumNetworkPolicy by default and add metrics port.
@@ -247,7 +249,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `capi_cluster_status_conditions`
   - `capi_cluster_status_phase`
 
-[Unreleased]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.8.1...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.9.0...HEAD
+[1.9.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.8.1...v1.9.0
 [1.8.1]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.8.0...v1.8.1
 [1.8.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.7.1...v1.8.0
 [1.7.1]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.7.0...v1.7.1
