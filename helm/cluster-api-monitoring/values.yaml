@@ -13,7 +13,7 @@ project:
   commit: "[[ .SHA ]]"
 
 image:
-  registry: quay.io
+  registry: gsoci.azurecr.io
   name: giantswarm/kube-state-metrics
   tag: v2.8.1
   pullPolicy: IfNotPresent
