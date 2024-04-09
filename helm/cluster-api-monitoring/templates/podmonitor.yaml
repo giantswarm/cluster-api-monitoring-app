@@ -32,7 +32,7 @@ spec:
     # Finally, we set the cluster_type to 'workload_cluster' if the cluster_type is still N/A.
     - action: replace
       sourceLabels:
-        - cluster_id
+      - cluster_id
       targetLabel: cluster_type
       replacement: 'N/A'
     - action: replace
