@@ -13,6 +13,12 @@ spec:
     relabelings:
     - action: labeldrop
       regex: 'uid'
+    - action: replace
+      sourceLabels:
+      - cluster_name
+      targetLabel: cluster_id
+      regex: (.*)
+      replacement: $1
   selector:
     matchLabels:
       {{- include "labels.selector" . | nindent 6 }}
