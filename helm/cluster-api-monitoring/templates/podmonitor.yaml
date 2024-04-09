@@ -17,9 +17,13 @@ spec:
       sourceLabels:
       - cluster_name
       targetLabel: cluster_id
+    # Use the 'name' label as cluster name if the cluster_name replace above fails
     - action: replace
       sourceLabels:
+      - cluster_id
       - name
+      separator: ;
+      regex: "^;(.*)$"
       targetLabel: cluster_id
     # We want to set the cluster_type to either 'management_cluster' or 'workload_cluster'
     # based on the type of cluster the scraped CR belongs to.
