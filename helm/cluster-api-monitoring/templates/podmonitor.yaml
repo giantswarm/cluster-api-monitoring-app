@@ -43,7 +43,7 @@ spec:
       replacement: 'management_cluster'
     - action: replace
       sourceLabels:
-        - cluster_type
+      - cluster_type
       targetLabel: cluster_type
       regex: 'N/A'
       replacement: 'workload_cluster'
