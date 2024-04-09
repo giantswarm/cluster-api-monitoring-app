@@ -9,16 +9,40 @@ spec:
     matchNames:
     - {{.Release.Namespace}}
   podMetricsEndpoints:
-  - targetPort: 8080
-    relabelings:
+  - port: metrics
+    metricRelabelings:
     - action: labeldrop
       regex: 'uid'
     - action: replace
       sourceLabels:
       - cluster_name
       targetLabel: cluster_id
-      regex: (.*)
-      replacement: $1
+    - action: replace
+      sourceLabels:
+      - name
+      targetLabel: cluster_id
+    # We want to set the cluster_type to either 'management_cluster' or 'workload_cluster'
+    # based on the type of cluster the scraped CR belongs to.
+    # We first set the cluster_type to N/A, then we set it to 'management_cluster' if the cluster_id
+    # matches the installation name.
+    # Finally, we set the cluster_type to 'workload_cluster' if the cluster_type is still N/A.
+    - action: replace
+      sourceLabels:
+        - cluster_id
+      targetLabel: cluster_type
+      replacement: 'N/A'
+    - action: replace
+      sourceLabels:
+      - cluster_id
+      targetLabel: cluster_type
+      regex: '^{{ .Values.managementCluster.name }}$'
+      replacement: 'management_cluster'
+    - action: replace
+      sourceLabels:
+        - cluster_type
+      targetLabel: cluster_type
+      regex: 'N/A'
+      replacement: 'workload_cluster'
   selector:
     matchLabels:
       {{- include "labels.selector" . | nindent 6 }}

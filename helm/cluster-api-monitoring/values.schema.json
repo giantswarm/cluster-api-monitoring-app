@@ -40,6 +40,17 @@
                 }
             }
         },
+        "managementCluster": {
+            "type": [
+                "object",
+                "string"
+            ],
+            "properties": {
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
         "name": {
             "type": "string"
         },

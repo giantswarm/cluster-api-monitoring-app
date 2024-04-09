@@ -58,3 +58,7 @@ resources:
 #     group: samplecontroller.k8s.io # group is the API group the CR belongs to
 #     kind: Foo                      # kind is the kind of the CR
 #     version: v1alpha1              # version is the version of the CR
+
+# Giant Swarm properties for management clusters
+managementCluster:
+  name: ""
