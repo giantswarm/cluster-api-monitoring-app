@@ -6,4 +6,4 @@ version: "[[ .Version ]]"
 appVersion: "[[ .AppVersion ]]"
 annotations:
   application.giantswarm.io/team: rocket
-  config.giantswarm.io/version: grizzly-mc-name
+  config.giantswarm.io/version: 0.1.0
