@@ -1,0 +1,11 @@
+metrics:
+  - name: "resource_info"
+    help: "The current state of a Flux Provider resource."
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          name: [ metadata, name ]
+    labelsFromPath:
+      exported_namespace: [ metadata, namespace ]
+      suspended: [ spec, suspend ]
