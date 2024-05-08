@@ -1,0 +1,13 @@
+metrics:
+  - name: "resource_info"
+    help: "The current state of a Flux ImageRepository resource."
+    each:
+      type: Info
+      info:
+        labelsFromPath:
+          name: [ metadata, name ]
+    labelsFromPath:
+      exported_namespace: [ metadata, namespace ]
+      ready: [ status, conditions, "[type=Ready]", status ]
+      suspended: [ spec, suspend ]
+      image: [ spec, image ]
