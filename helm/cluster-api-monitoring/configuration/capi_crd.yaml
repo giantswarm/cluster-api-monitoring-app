@@ -1,0 +1,11 @@
+labelsFromPath:
+  resource_name: [metadata, name]
+metrics:
+  - name: "info"
+    help: "CAPI CRD Info"
+    each:
+      type: Info
+      info:
+        path: [spec, versions]
+        labelsFromPath:
+          version: [name]
