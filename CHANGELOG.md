@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+
+- Bump memory request and limit to 100Mi.
+
 ## [1.13.0] - 2024-05-27
 
 ### Added

@@ -36,9 +36,9 @@ containerSecurityContext:
 
 resources:
   limits:
-    memory: 30Mi
+    memory: 100Mi
   requests:
-    memory: 30Mi
+    memory: 100Mi
 # List of CRs to monitor
 # This list is defined in the config repo per installation and will be merged together with
 # default values from the config repo.
