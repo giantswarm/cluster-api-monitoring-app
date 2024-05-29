@@ -2,8 +2,8 @@
 apiVersion: autoscaling.k8s.io/v1
 kind: VerticalPodAutoscaler
 metadata:
-  name: {{ include "resource.default.name" . }}
-  namespace: {{ include "resource.default.namespace" . }}
+  name: {{ include "name" . }}
+  namespace: {{.Release.Namespace}}
   labels:
     {{- include "labels.common" . | nindent 4 }}
 spec:
@@ -15,7 +15,7 @@ spec:
   targetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name:  {{ include "resource.default.name" . }}
+    name:  {{ include "name" . }}
   updatePolicy:
     updateMode: Auto
 {{- end }}
