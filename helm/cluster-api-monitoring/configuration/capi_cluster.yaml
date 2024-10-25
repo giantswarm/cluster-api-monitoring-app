@@ -8,6 +8,10 @@ labelsFromPath:
   uid:
     - metadata
     - uid
+  release_version:
+    - metadata
+    - labels
+    - release.giantswarm.io/version
 metrics:
   - name: info
     help: Information about a cluster.

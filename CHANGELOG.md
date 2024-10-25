@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Include `release_version` label in capi_cluster_XXX metrics
+
 ## [1.14.0] - 2024-05-29
 
 ### Added
@@ -64,7 +68,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-- Cleanup comments from `README.md` as all mentioned changes/PRs got merged and released in upstream `KSM`. 
+- Cleanup comments from `README.md` as all mentioned changes/PRs got merged and released in upstream `KSM`.
 
 ## [1.7.1] - 2023-06-15
 
@@ -96,7 +100,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `infrastructure_reference_kind`
   - `infrastructure_reference_name`
   - `control_plane_name` if the machine is a control-plane machine
-  
+
 ## [1.6.0] - 2023-05-31
 
 ### Add
