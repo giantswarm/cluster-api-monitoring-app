@@ -1,4 +1,5 @@
 version: 2.1
+
 orbs:
   architect: giantswarm/architect@5.11.0
 
@@ -6,21 +7,25 @@ workflows:
   package-and-push-chart-on-tag:
     jobs:
       - architect/push-to-app-catalog:
-          context: "architect"
+          context: architect
           name: push-to-control-plane-app-catalog
-          app_catalog: "control-plane-catalog"
-          app_catalog_test: "control-plane-test-catalog"
-          chart: "cluster-api-monitoring"
+          app_catalog: control-plane-catalog
+          app_catalog_test: control-plane-test-catalog
+          chart: cluster-api-monitoring
           # Trigger job on git tag.
           filters:
             tags:
               only: /^v.*/
+            branches:
+              ignore:
+                - main
+                - master
 
       - architect/push-to-app-collection:
           name: gcp-app-collection
-          context: "architect"
-          app_name: "cluster-api-monitoring"
-          app_collection_repo: "gcp-app-collection"
+          context: architect
+          app_name: cluster-api-monitoring
+          app_collection_repo: gcp-app-collection
           requires:
             - push-to-control-plane-app-catalog
           # Trigger job on git tag.
@@ -32,9 +37,9 @@ workflows:
 
       - architect/push-to-app-collection:
           name: cloud-director-app-collection
-          context: "architect"
-          app_name: "cluster-api-monitoring"
-          app_collection_repo: "cloud-director-app-collection"
+          context: architect
+          app_name: cluster-api-monitoring
+          app_collection_repo: cloud-director-app-collection
           requires:
             - push-to-control-plane-app-catalog
           # Trigger job on git tag.
@@ -46,9 +51,9 @@ workflows:
 
       - architect/push-to-app-collection:
           name: capa-app-collection
-          context: "architect"
-          app_name: "cluster-api-monitoring"
-          app_collection_repo: "capa-app-collection"
+          context: architect
+          app_name: cluster-api-monitoring
+          app_collection_repo: capa-app-collection
           requires:
             - push-to-control-plane-app-catalog
           # Trigger job on git tag.
@@ -60,9 +65,9 @@ workflows:
 
       - architect/push-to-app-collection:
           name: vsphere-app-collection
-          context: "architect"
-          app_name: "cluster-api-monitoring"
-          app_collection_repo: "vsphere-app-collection"
+          context: architect
+          app_name: cluster-api-monitoring
+          app_collection_repo: vsphere-app-collection
           requires:
             - push-to-control-plane-app-catalog
           # Trigger job on git tag.
@@ -74,9 +79,9 @@ workflows:
 
       - architect/push-to-app-collection:
           name: capz-app-collection
-          context: "architect"
-          app_name: "cluster-api-monitoring"
-          app_collection_repo: "capz-app-collection"
+          context: architect
+          app_name: cluster-api-monitoring
+          app_collection_repo: capz-app-collection
           requires:
             - push-to-control-plane-app-catalog
           # Trigger job on git tag.
