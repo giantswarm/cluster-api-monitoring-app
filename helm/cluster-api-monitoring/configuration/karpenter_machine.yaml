@@ -1,0 +1,81 @@
+labelsFromPath:
+  cluster_name:
+    - metadata
+    - labels
+    - cluster
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
+metrics:
+  - name: info
+    help: Information about a karpenter machine.
+    each:
+      info:
+        labelsFromPath:
+          region:
+            - metadata
+            - labels
+            - topology.kubernetes.io/region
+          availability_zone:
+            - metadata
+            - labels
+            - topology.kubernetes.io/zone
+          nodepool_name:
+            - metadata
+            - labels
+            - nodepool
+          instance_type:
+            - metadata
+            - labels
+            - node.kubernetes.io/instance-type
+          provisioner_name:
+            - metadata
+            - labels
+            - karpenter.sh/provisioner-name
+          capacity_type:
+            - metadata
+            - labels
+            - karpenter.sh/capacity-type
+          node_name:
+            - status
+            - nodeName
+      type: Info
+  - name: status_condition
+    help: The condition of a machine.
+    each:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+      type: StateSet
+  - name: status_condition_last_transition_time
+    help: The condition last transition time of a machine.
+    each:
+      gauge:
+        labelsFromPath:
+          type:
+            - type
+          status:
+            - status
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - lastTransitionTime
+      type: Gauge
