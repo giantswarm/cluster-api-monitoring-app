@@ -1,0 +1,48 @@
+labelsFromPath:
+  cluster_name:
+    - metadata
+    - labels
+    - cluster.x-k8s.io/cluster-name
+  name:
+    - metadata
+    - name
+  namespace:
+    - metadata
+    - namespace
+  uid:
+    - metadata
+    - uid
+metrics:
+  - name: status_condition
+    help: The condition of a kubeadmconfig.
+    each:
+      stateSet:
+        labelName: status
+        labelsFromPath:
+          type:
+            - type
+        list:
+          - "True"
+          - "False"
+          - Unknown
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - status
+      type: StateSet
+  - name: status_condition_last_transition_time
+    help: The condition last transition time of a kubeadmconfig.
+    each:
+      gauge:
+        labelsFromPath:
+          type:
+            - type
+          status:
+            - status
+        path:
+          - status
+          - conditions
+        valueFrom:
+          - lastTransitionTime
+      type: Gauge
