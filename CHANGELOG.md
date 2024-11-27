@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Bump `kube-state-metrics` to `v2.9.2`.
+
 ## [1.15.0] - 2024-10-25
 
 ### Added

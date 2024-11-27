@@ -15,7 +15,7 @@ project:
 image:
   registry: gsoci.azurecr.io
   name: giantswarm/kube-state-metrics
-  tag: v2.8.1
+  tag: v2.9.2
   pullPolicy: IfNotPresent
 
 podSecurityContext:
