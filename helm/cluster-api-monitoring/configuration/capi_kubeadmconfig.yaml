@@ -18,6 +18,7 @@ metrics:
     each:
       stateSet:
         labelName: status
+        labelFromKey: reason
         labelsFromPath:
           type:
             - type
