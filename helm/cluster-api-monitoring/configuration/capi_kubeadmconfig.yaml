@@ -13,18 +13,46 @@ labelsFromPath:
     - metadata
     - uid
 metrics:
+  - name: info
+    help: Information about a kubeadmconfig.
+    each:
+      info:
+        # TODO: added metadata.name even it's already defined above as the metric doesn't work with empty labelsFromPath.
+        labelsFromPath:
+          name:
+            - metadata
+            - name
+      type: Info
+  - name: created
+    help: Unix creation timestamp.
+    each:
+      gauge:
+        path:
+          - metadata
+          - creationTimestamp
+      type: Gauge
+  - name: annotation_paused
+    help: Whether the kubeadmconfig is paused and any of its resources will not be processed by the controllers.
+    each:
+      info:
+        path:
+          - metadata
+          - annotations
+          - cluster.x-k8s.io/paused
+        labelsFromPath:
+          paused_value: []
+      type: Info
   - name: status_condition
     help: The condition of a kubeadmconfig.
     each:
       stateSet:
         labelName: status
-        labelFromKey: reason
         labelsFromPath:
           type:
             - type
         list:
-          - "True"
-          - "False"
+          - 'True'
+          - 'False'
           - Unknown
         path:
           - status
@@ -47,3 +75,20 @@ metrics:
         valueFrom:
           - lastTransitionTime
       type: Gauge
+  - name: owner
+    help: Owner references.
+    each:
+      info:
+        labelsFromPath:
+          owner_is_controller:
+            - controller
+          owner_kind:
+            - kind
+          owner_name:
+            - name
+          owner_uid:
+            - uid
+        path:
+          - metadata
+          - ownerReferences
+      type: Info
