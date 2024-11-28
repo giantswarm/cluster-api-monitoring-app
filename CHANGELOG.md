@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add metrics for karpenter machines.
+- Add metrics for `Kubeadmconfig` CRs.
+
 ### Changed
 
 - Bump `kube-state-metrics` to `v2.9.2`.
