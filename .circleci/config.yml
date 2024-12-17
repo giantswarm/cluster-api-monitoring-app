@@ -22,10 +22,10 @@ workflows:
                 - master
 
       - architect/push-to-app-collection:
-          name: gcp-app-collection
+          name: proxmox-app-collection
           context: architect
           app_name: cluster-api-monitoring
-          app_collection_repo: gcp-app-collection
+          app_collection_repo: proxmox-app-collection
           requires:
             - push-to-control-plane-app-catalog
           # Trigger job on git tag.
