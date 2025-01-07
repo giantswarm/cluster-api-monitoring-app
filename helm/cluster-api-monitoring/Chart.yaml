@@ -5,5 +5,5 @@ home: https://github.com/giantswarm/cluster-api-monitoring
 version: "[[ .Version ]]"
 appVersion: "[[ .AppVersion ]]"
 annotations:
-  application.giantswarm.io/team: rocket
+  application.giantswarm.io/team: tenet
   config.giantswarm.io/version: 0.1.0
