@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Set default memory resources to `200Mi`.
+
 ## [1.16.1] - 2025-01-07
 
 ### Fixed
