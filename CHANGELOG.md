@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Don't use CRs kind in the Flux-related metrics names.
+- Set the `cluster_name` as a common metric label for the Flux-related metrics.
+
 ## [1.17.0] - 2025-04-04
 
 ### Changed
