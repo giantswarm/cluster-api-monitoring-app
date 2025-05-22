@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.17.1] - 2025-05-22
+
 ### Changed
 
 - Don't use CRs kind in the Flux-related metrics names.
@@ -320,7 +322,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - `capi_cluster_status_conditions`
   - `capi_cluster_status_phase`
 
-[Unreleased]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.17.0...HEAD
+[Unreleased]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.17.1...HEAD
+[1.17.1]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.17.0...v1.17.1
 [1.17.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.16.1...v1.17.0
 [1.16.1]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.16.0...v1.16.1
 [1.16.0]: https://github.com/giantswarm/cluster-api-monitoring-app/compare/v1.15.0...v1.16.0
