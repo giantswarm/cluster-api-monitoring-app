@@ -15,8 +15,14 @@ data:
       - groupVersionKind:
           group: {{ $val.group }}
           kind: {{ $val.kind }}
-          version: {{ $val.version }}
+          version: {{ $val.version | quote }}
+        {{- if eq $componentKey "flux" }}
+        commonLabels:
+          cluster_name: "{{ $.Values.managementCluster.name }}"
+        metricNamePrefix: "gotk"
+        {{- else }}
         metricNamePrefix: {{(printf "%s_%s"  $componentKey $key)}}
+        {{- end }}
 {{ $.Files.Get (printf "configuration/%s_%s.yaml" $componentKey $key) | indent 8}}
     {{ end }}
   {{- end }}
