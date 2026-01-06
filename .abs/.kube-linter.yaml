@@ -1,0 +1,5 @@
+checks:
+  exclude:
+    # CPU requirements should be set based on actual usage data
+    - unset-cpu-requirements
+

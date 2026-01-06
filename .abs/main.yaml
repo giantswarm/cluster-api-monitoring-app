@@ -3,3 +3,4 @@ generate-metadata: true
 chart-dir: ./helm/cluster-api-monitoring
 destination: build
 catalog-base-url: https://giantswarm.github.io/control-plane-test-catalog/
+kubelinter-config: .abs/.kube-linter.yaml
