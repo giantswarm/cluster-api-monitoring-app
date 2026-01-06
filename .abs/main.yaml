@@ -1,4 +1,5 @@
 replace-chart-version-with-git: true
 generate-metadata: true
 chart-dir: ./helm/cluster-api-monitoring
-destination: ./build
+destination: build
+catalog-base-url: https://giantswarm.github.io/control-plane-test-catalog/

@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Migrate to App Build Suite (ABS) for Helm chart building.
+
 ## [1.17.1] - 2025-05-22
 
 ### Changed
