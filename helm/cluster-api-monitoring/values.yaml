@@ -8,10 +8,6 @@ global:
   podSecurityStandards:
     enforced: false
 
-project:
-  branch: "[[ .Branch ]]"
-  commit: "[[ .SHA ]]"
-
 image:
   registry: gsoci.azurecr.io
   name: giantswarm/kube-state-metrics

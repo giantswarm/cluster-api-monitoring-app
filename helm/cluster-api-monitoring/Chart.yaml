@@ -1,9 +1,11 @@
-apiVersion: v1
+apiVersion: v2
 name: cluster-api-monitoring
 description: A modified kube-state-metrics which only monitor CAPI related CRs
 home: https://github.com/giantswarm/cluster-api-monitoring
-version: "[[ .Version ]]"
-appVersion: "[[ .AppVersion ]]"
+version: 1.17.1-dev
+appVersion: 1.17.1-dev
+icon: https://s.giantswarm.io/app-icons/prometheus/1/light.svg
 annotations:
   application.giantswarm.io/team: tenet
+  io.giantswarm.application.team: tenet
   config.giantswarm.io/version: 0.1.0
