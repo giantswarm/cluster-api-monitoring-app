@@ -13,7 +13,7 @@ Here we define the cluster-api-monitoring chart with its templates and default c
 
 As the current alpha feature has a wide range of limitations and the discussion about new features is still ongoing with the KSM community we had to build this app from a recently created fork of KSM. The goal of this fork is a contribution back to the upstream community but was initialy used to verify if it's worth the effort to maintain a custom metrics exporter, based on KSM `golang` packages.
 
-To not harm the existing `KSM` installation in `kube-system` and make fast progress towards monitoring of ClusterAPI related CRs + the fact that `KSM` is running from a forked version we decided to start creating a new app (Please note the [container image build](#container-image-build) section).
+To not harm the existing `KSM` installation in `kube-system` and make fast progress towards monitoring of ClusterAPI related CRs + the fact that `KSM` is running from a forked version we decided to start creating a new app.
 
 **Who should use it?**
 
@@ -23,8 +23,8 @@ Everyone which needs information from `CustomResource` objects exposed as metric
 
 There are several ways to install this app onto a workload cluster.
 
-- [Using our web interface](https://docs.giantswarm.io/ui-api/web/app-platform/#installing-an-app).
-- By creating an [App resource](https://docs.giantswarm.io/ui-api/management-api/crd/apps.application.giantswarm.io/) in the management cluster as explained in [Getting started with App Platform](https://docs.giantswarm.io/app-platform/getting-started/).
+- [Using GitOps to instantiate the App](https://docs.giantswarm.io/tutorials/continuous-deployment/apps/add-appcr/)
+- By creating an [App resource](https://docs.giantswarm.io/reference/platform-api/crd/apps.application.giantswarm.io) using the platform API as explained in [Getting started with App Platform](https://docs.giantswarm.io/tutorials/fleet-management/app-platform/).
 
 ## Configuring
 
